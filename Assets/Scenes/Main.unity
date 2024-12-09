@@ -23741,7 +23741,7 @@ GameObject:
   - component: {fileID: 1928664259}
   - component: {fileID: 1928664258}
   m_Layer: 0
-  m_Name: Floor (1)
+  m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23768,7 +23768,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 129611684}
+  m_Mesh: {fileID: 833129385}
 --- !u!33 &1928664259
 MeshFilter:
   m_ObjectHideFlags: 10
