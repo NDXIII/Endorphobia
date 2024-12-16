@@ -87,4 +87,8 @@ public class PlayerController : MonoBehaviour
     public void HandleLookInput(InputAction.CallbackContext ctx) {
         lookInput = ctx.ReadValue<Vector2>();
     }
+
+    public void HandlePauseInput(InputAction.CallbackContext ctx) {
+        GameManager.Instance.PauseGame();
+    }
 }
