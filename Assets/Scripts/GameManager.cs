@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
 
         // Disable player
         playerObject.SetActive(false);
+
+        // Freeze Game
+        Time.timeScale = 0f;
     }
 
 
@@ -35,6 +38,9 @@ public class GameManager : MonoBehaviour
 
         // Enable player
         playerObject.SetActive(true);
+
+        // Unfreeze Game
+        Time.timeScale = 1f;
     }
 
     public void PauseGame() {
