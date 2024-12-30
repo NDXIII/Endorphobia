@@ -19,6 +19,11 @@ public class PlayerController : MonoBehaviour
     public float lookSpeed = 0.5f;
     public float lookLimit = 90f;
 
+    [Header("Bait Throw Parameters")]
+    public GameObject baitPrefab;
+    public Transform baitSpawnPoint;
+    public float throwForce = 25f;
+
 
     public CharacterController characterController;
     private Vector3 moveVelocity;
@@ -66,6 +71,19 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveVelocity * Time.deltaTime);
     }
 
+    private void ThrowBait()
+    {
+        // Instantiate bait prefab
+        GameObject bait = Instantiate(baitPrefab, baitSpawnPoint.position, transform.rotation);
+
+        // Add force to bait
+        Rigidbody rb = bait.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(fpsCamera.transform.forward * throwForce, ForceMode.Impulse);
+        }
+    }
+
     public void HandleMoveInput(InputAction.CallbackContext ctx) {
         moveInput = ctx.ReadValue<Vector2>();
     }
@@ -90,5 +108,13 @@ public class PlayerController : MonoBehaviour
 
     public void HandlePauseInput(InputAction.CallbackContext ctx) {
         GameManager.Instance.PauseGame();
+    }
+
+    public void HandleThrowBaitInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            ThrowBait();
+        }
     }
 }
