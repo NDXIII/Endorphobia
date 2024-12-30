@@ -4913,7 +4913,6 @@ GameObject:
   - component: {fileID: 362239170}
   - component: {fileID: 362239169}
   - component: {fileID: 362239171}
-  - component: {fileID: 362239168}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -4921,19 +4920,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &362239168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362239167}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ba85317893305f41800f09a52875121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1050979845}
 --- !u!195 &362239169
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4945,9 +4931,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 7
-  m_Acceleration: 8
+  m_Acceleration: 16
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -4989,6 +4975,8 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 6887479818749739328
   - rid: 6887479818749739329
+  - rid: 7144497513077145749
+  - rid: 7144497513685058244
   references:
     version: 2
     RefIds:
@@ -5012,6 +5000,22 @@ MonoBehaviour:
         - {fileID: 1855976483}
         - {fileID: 1533922075}
         - {fileID: 1167487789}
+    - rid: 7144497513077145749
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 12945273526187910431
+          m_Value1: 7185710959144061717
+        Name: Player
+        m_Value: {fileID: 1050979845}
+    - rid: 7144497513685058244
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 16843854131644173651
+          m_Value1: 6663859522765829328
+        Name: ChaseRange
+        m_Value: 25
 --- !u!1 &383800091
 GameObject:
   m_ObjectHideFlags: 0
@@ -12012,7 +12016,7 @@ MonoBehaviour:
   jumpPower: 7
   gravity: 9.81
   fpsCamera: {fileID: 330585545}
-  lookSpeed: 0.5
+  lookSpeed: 0.1
   lookLimit: 90
   characterController: {fileID: 1050979847}
 --- !u!1 &1060835404
