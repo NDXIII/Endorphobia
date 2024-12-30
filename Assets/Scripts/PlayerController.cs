@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public GameObject baitPrefab;
     public Transform baitSpawnPoint;
     public float throwForce = 25f;
+    private GameObject currentBaitObj;
 
 
     public CharacterController characterController;
@@ -74,10 +75,14 @@ public class PlayerController : MonoBehaviour
     private void ThrowBait()
     {
         // Instantiate bait prefab
-        GameObject bait = Instantiate(baitPrefab, baitSpawnPoint.position, transform.rotation);
+        if (currentBaitObj != null)
+        {
+            Destroy(currentBaitObj);
+        }
+        currentBaitObj = Instantiate(baitPrefab, baitSpawnPoint.position, transform.rotation);
 
         // Add force to bait
-        Rigidbody rb = bait.GetComponent<Rigidbody>();
+        Rigidbody rb = currentBaitObj.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.AddForce(fpsCamera.transform.forward * throwForce, ForceMode.Impulse);

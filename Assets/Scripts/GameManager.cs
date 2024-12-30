@@ -5,7 +5,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public Camera mainMenuCamera;
     public GameObject playerObject;
-    
+    public GameObject boss;
+
 
     private void Awake() {
         // If there is an instance, and it's not me, delete myself.
@@ -86,5 +87,10 @@ public class GameManager : MonoBehaviour
 
         // Disable menu camera
         mainMenuCamera.enabled = false;
+    }
+
+    public GameObject GetBoss()
+    {
+        return boss;
     }
 }
