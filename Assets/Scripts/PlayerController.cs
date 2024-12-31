@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(fpsCamera.transform.position, fpsCamera.transform.forward * 5f, Color.red, 1f);
         if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, 5f, interactableLayer))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if (interactable != null)
             {

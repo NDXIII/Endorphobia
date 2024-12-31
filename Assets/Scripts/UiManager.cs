@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public enum UiScreen {
     None,
     MainMenu,
-    Pause
+    Pause,
+    Gameplay
 }
 
 public class UiManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class UiManager : MonoBehaviour
     public UiScreen uiScreen { get; private set; } = UiScreen.MainMenu;
     public GameObject mainMenuScreen;
     public GameObject pauseScreen;
+    public GameObject gameplayScreen;
     public Button btnStartGame;
     public Button btnQuit;
 
@@ -30,14 +32,18 @@ public class UiManager : MonoBehaviour
         // Configure screens
         mainMenuScreen.SetActive(true);
         pauseScreen.SetActive(false);
+        gameplayScreen.SetActive(false);
     }
 
 
     public void ShowPauseScreen() {
         // Return if main menu already opened
-        if (uiScreen != UiScreen.None) {
+        if (uiScreen == UiScreen.Pause) {
             return;
         }
+
+        // Hide gameplay screen
+        gameplayScreen.SetActive(false);
 
         // Show pause screen
         pauseScreen.SetActive(true);
@@ -47,13 +53,15 @@ public class UiManager : MonoBehaviour
 
     public void OnStartButton() {
         mainMenuScreen.SetActive(false);
-        uiScreen = UiScreen.None;
+        gameplayScreen.SetActive(true);
+        uiScreen = UiScreen.Gameplay;
         GameManager.Instance.StartGame();
     }
 
     public void OnResumeButton() {
         pauseScreen.SetActive(false);
-        uiScreen = UiScreen.None;
+        gameplayScreen.SetActive(true);
+        uiScreen = UiScreen.Gameplay;
         GameManager.Instance.ResumeGame();
     }
 
