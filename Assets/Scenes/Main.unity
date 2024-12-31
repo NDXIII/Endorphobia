@@ -14551,6 +14551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   batteryDepletionRate: 1
+  objectSpawner: {fileID: 1158291974}
   flashlight: {fileID: 750318218}
   batteryText: {fileID: 677147257}
 --- !u!4 &1178038594

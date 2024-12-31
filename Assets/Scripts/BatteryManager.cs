@@ -9,6 +9,7 @@ public class BatteryManager : MonoBehaviour
     public float batteryDepletionRate = 1f;
 
     [Header("References")]
+    public ObjectSpawner objectSpawner;
     public GameObject flashlight;
     public TMP_Text batteryText;
 
@@ -39,6 +40,11 @@ public class BatteryManager : MonoBehaviour
         batteryText.text = "Battery: " + (batteryCharge * 100).ToString("F0") + "%";
     }
 
+    public void BatteryPickedUp()
+    {
+        SpawnBatteries(1);
+    }
+
     public void ChargeBattery(float chargeAmount)
     {
         batteryCharge = Mathf.Clamp(batteryCharge + chargeAmount, 0f, 1f);
@@ -47,5 +53,10 @@ public class BatteryManager : MonoBehaviour
     public float GetBatteryCharge()
     {
         return batteryCharge;
+    }
+
+    private void SpawnBatteries(int amount)
+    {
+        objectSpawner.SpawnAdditionalObjects(amount);
     }
 }
