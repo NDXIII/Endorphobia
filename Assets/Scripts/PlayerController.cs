@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     public float throwForce = 25f;
     private GameObject currentBaitObj;
 
+    [Header("Interact Parameters")]
+    public LayerMask interactableLayer;
+
 
     public CharacterController characterController;
     private Vector3 moveVelocity;
@@ -89,6 +92,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Interact()
+    {
+        // Raycast to detect interactable objects
+        RaycastHit hit;
+        Debug.DrawRay(fpsCamera.transform.position, fpsCamera.transform.forward * 5f, Color.red, 1f);
+        if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, 5f, interactableLayer))
+        {
+            Debug.Log(hit.collider.name);
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                interactable.Interact();
+            }
+        }
+    }
+
     public void HandleMoveInput(InputAction.CallbackContext ctx) {
         moveInput = ctx.ReadValue<Vector2>();
     }
@@ -120,6 +139,14 @@ public class PlayerController : MonoBehaviour
         if (ctx.performed)
         {
             ThrowBait();
+        }
+    }
+
+    public void HandleInteractInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            Interact();
         }
     }
 }
