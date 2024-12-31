@@ -23,7 +23,9 @@ public class PlayerController : MonoBehaviour
     public GameObject baitPrefab;
     public Transform baitSpawnPoint;
     public float throwForce = 25f;
+    public float throwCooldown = 3f;
     private GameObject currentBaitObj;
+    private float nextThrowTime = 0f;
 
     [Header("Interact Parameters")]
     public LayerMask interactableLayer;
@@ -77,6 +79,14 @@ public class PlayerController : MonoBehaviour
 
     private void ThrowBait()
     {
+        // Cooldown
+        if (Time.time < nextThrowTime)
+        {
+            return;
+        }
+        nextThrowTime = Time.time + throwCooldown;
+
+
         // Instantiate bait prefab
         if (currentBaitObj != null)
         {
