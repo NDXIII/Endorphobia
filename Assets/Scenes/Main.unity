@@ -5021,7 +5021,7 @@ MonoBehaviour:
           m_Value0: 16843854131644173651
           m_Value1: 6663859522765829328
         Name: ChaseRange
-        m_Value: 25
+        m_Value: 15
     - rid: 7144497515768578369
       type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
