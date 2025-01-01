@@ -37,7 +37,7 @@ public class BatteryManager : MonoBehaviour
         flashlight.SetActive(!(batteryCharge <= 0.01f));
 
         // Update battery text in percentage with a fixed format of XXX%
-        batteryText.text = "Battery: " + (batteryCharge * 100).ToString("F0") + "%";
+        batteryText.text = (batteryCharge * 100).ToString("F0") + "%";
     }
 
     public void BatteryPickedUp()
