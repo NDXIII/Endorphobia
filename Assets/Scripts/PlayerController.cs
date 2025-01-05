@@ -141,7 +141,15 @@ public class PlayerController : MonoBehaviour
     }
 
     public void HandlePauseInput(InputAction.CallbackContext ctx) {
-        GameManager.Instance.PauseGame();
+        // Check if we are currently not in the pause screen
+        if (UiManager.Instance.uiScreen != UiScreen.Pause) {
+            // Pause the game
+            GameManager.Instance.PauseGame();
+        }
+        else {
+            // Trigger resume button from UI Manager
+            UiManager.Instance.OnResumeButton();
+        }
     }
 
     public void HandleThrowBaitInput(InputAction.CallbackContext ctx)

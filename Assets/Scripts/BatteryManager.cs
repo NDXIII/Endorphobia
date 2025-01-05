@@ -4,6 +4,7 @@ using UnityEngine;
 public class BatteryManager : MonoBehaviour
 {
     public static BatteryManager Instance;
+    public float batteryCharge { get; private set; } = 1f;
 
     [Header("Battery Parameters")]
     public float batteryDepletionRate = 1f;
@@ -11,9 +12,8 @@ public class BatteryManager : MonoBehaviour
     [Header("References")]
     public ObjectSpawner objectSpawner;
     public GameObject flashlight;
-    public TMP_Text batteryText;
+    public TMP_Text txtCharge;
 
-    private float batteryCharge = 1f;
 
     private void Start()
     {
@@ -36,8 +36,8 @@ public class BatteryManager : MonoBehaviour
         // Set flashlight active if battery charge is greater than 0.01f, otherwise deactivate it
         flashlight.SetActive(!(batteryCharge <= 0.01f));
 
-        // Update battery text in percentage with a fixed format of XXX%
-        batteryText.text = (batteryCharge * 100).ToString("F0") + "%";
+        // Update battery text
+        txtCharge.SetText((int)(batteryCharge * 100) + "%");
     }
 
     public void BatteryPickedUp()
@@ -48,11 +48,6 @@ public class BatteryManager : MonoBehaviour
     public void ChargeBattery(float chargeAmount)
     {
         batteryCharge = Mathf.Clamp(batteryCharge + chargeAmount, 0f, 1f);
-    }
-
-    public float GetBatteryCharge()
-    {
-        return batteryCharge;
     }
 
     private void SpawnBatteries(int amount)

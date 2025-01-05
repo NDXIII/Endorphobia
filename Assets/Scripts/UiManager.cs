@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +35,7 @@ public class UiManager : MonoBehaviour
         pauseScreen.SetActive(false);
         gameplayScreen.SetActive(false);
     }
-
+    
 
     public void ShowPauseScreen() {
         // Return if main menu already opened
