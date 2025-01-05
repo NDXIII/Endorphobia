@@ -3,13 +3,14 @@ using Unity.Behavior;
 using UnityEngine;
 
 [Serializable, Unity.Properties.GeneratePropertyBag]
-[Condition(name: "PlayerInFOV", story: "[Player] is in [FOV] degree FOV and [Range] range of [Agent]", category: "Conditions", id: "6a200b8e9904935dea18c7eda2dd0959")]
+[Condition(name: "PlayerInFOV", story: "[Player] is in [FOV] degree FOV and [Range] range of [Agent] and not obstructed by Wall of Layer [WallLayerName]", category: "Conditions", id: "6a200b8e9904935dea18c7eda2dd0959")]
 public partial class PlayerInFovCondition : Condition
 {
     [SerializeReference] public BlackboardVariable<GameObject> Player;
     [SerializeReference] public BlackboardVariable<float> FOV;
     [SerializeReference] public BlackboardVariable<float> Range;
     [SerializeReference] public BlackboardVariable<GameObject> Agent;
+    [SerializeReference] public BlackboardVariable<String> WallLayerName;
 
     public override bool IsTrue()
     {
@@ -51,7 +52,7 @@ public partial class PlayerInFovCondition : Condition
         }
 
         // Perform a raycast to check for obstacles
-        if (Physics.Raycast(agent.position, directionToPlayer, out RaycastHit hit, viewDistance, LayerMask.GetMask("Wall")))
+        if (Physics.Raycast(agent.position, directionToPlayer, out RaycastHit hit, viewDistance, LayerMask.GetMask(WallLayerName.Value)))
         {
             if (hit.transform != player)
             {
