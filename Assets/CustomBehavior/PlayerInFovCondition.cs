@@ -38,6 +38,7 @@ public partial class PlayerInFovCondition : Condition
         float angleToPlayer = Vector3.Angle(agent.forward, directionToPlayer);
         if (angleToPlayer > fovAngle / 2f)
         {
+            Debug.Log("Player is outside the FOV");
             return false; // Player is outside the FOV
         }
 
@@ -45,19 +46,22 @@ public partial class PlayerInFovCondition : Condition
         float distanceToPlayer = Vector3.Distance(agent.position, player.position);
         if (distanceToPlayer > viewDistance)
         {
+            Debug.Log("Player is too far away");
             return false; // Player is too far away
         }
 
         // Perform a raycast to check for obstacles
-        if (Physics.Raycast(agent.position, directionToPlayer, out RaycastHit hit, viewDistance))
+        if (Physics.Raycast(agent.position, directionToPlayer, out RaycastHit hit, viewDistance, LayerMask.GetMask("Wall")))
         {
             if (hit.transform != player)
             {
+                Debug.Log("Player is obstructed by " + hit.transform.name);
                 return false; // Something is obstructing the view
             }
         }
 
         // Player is within FOV, within range, and not obstructed
+        Debug.Log("Player is within FOV, within range, and not obstructed");
         return true;
     }
 }
