@@ -9,6 +9,6 @@ public class TimerStats : MonoBehaviour
     void Update()
     {
         float timeSinceStartup = Time.realtimeSinceStartup;
-        txtTimer.text = string.Format("{0:00}:{1:00}", (int)(timeSinceStartup / 60), (int)timeSinceStartup);
+        txtTimer.text = string.Format("{0:00}:{1:00}", (int)(timeSinceStartup / 60), (int)(timeSinceStartup % 60));
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Mono.Cecil;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,8 +31,9 @@ public class PlayerController : MonoBehaviour
     [Header("Interact Parameters")]
     public LayerMask interactableLayer;
 
-
+    public GameObject flashlight;
     public CharacterController characterController;
+
     private Vector3 moveVelocity;
     private Vector2 moveInput;
     private Vector2 lookInput;
@@ -118,6 +120,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    public void OnBatteryPickedUp(float chargeAmount) {
+        flashlight.GetComponent<Flashlight>().ChargeBattery(chargeAmount);
+    }
+
+
     public void HandleMoveInput(InputAction.CallbackContext ctx) {
         moveInput = ctx.ReadValue<Vector2>();
     }
@@ -165,6 +173,14 @@ public class PlayerController : MonoBehaviour
         if (ctx.performed)
         {
             Interact();
+        }
+    }
+
+    public void HandleFlashlightInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            flashlight.GetComponent<Flashlight>().Toggle();
         }
     }
 }

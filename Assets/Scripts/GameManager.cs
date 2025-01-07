@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public Camera mainMenuCamera;
     public GameObject playerObject;
-    public GameObject boss;
+    public GameObject bossObject;
 
 
     private void Awake() {
@@ -89,8 +89,12 @@ public class GameManager : MonoBehaviour
         mainMenuCamera.enabled = false;
     }
 
+    public void OnBatteryPickedUp(float chargeAmount) {
+        playerObject.GetComponent<PlayerController>().OnBatteryPickedUp(chargeAmount);
+    }
+
     public GameObject GetBoss()
     {
-        return boss;
+        return bossObject;
     }
 }
