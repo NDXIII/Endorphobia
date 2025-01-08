@@ -6,7 +6,7 @@ public class Battery : MonoBehaviour
 
     public void Pickup()
     {
-        BatteryManager.Instance.BatteryPickedUp(pickupChargeAmount);
+        GameManager.Instance.OnBatteryPickedUp(pickupChargeAmount);
         Destroy(gameObject);
     }
 }

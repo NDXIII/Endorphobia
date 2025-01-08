@@ -1,12 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-public class UiResource : MonoBehaviour {
+public class UITool : MonoBehaviour {
+    public bool selected { get; private set; } = true;
+    
     public CanvasGroup canvasGroup;
     public TMP_Text detailText;
     public float opacityDeactivated = 0.25f;
-
-    public bool active { get; private set; } = true;
 
 
     private void Awake() {
@@ -15,8 +15,12 @@ public class UiResource : MonoBehaviour {
 
 
     public void Toggle() {
-        active = !active;
-        canvasGroup.alpha = active ? 1.0f : opacityDeactivated;
+        selected = !selected;
+        canvasGroup.alpha = selected ? 1.0f : opacityDeactivated;
+    }
+
+    public string GetDetailText(string text) {
+        return detailText.text;
     }
 
     public void SetDetailText(string text) {

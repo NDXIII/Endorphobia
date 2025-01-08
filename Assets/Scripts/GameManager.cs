@@ -4,6 +4,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Camera mainMenuCamera;
+    public ObjectSpawner batterySpawner;
+
+    [Header("Game Objects")]
     public GameObject playerObject;
     public GameObject bossObject;
 
@@ -90,6 +93,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnBatteryPickedUp(float chargeAmount) {
+        // Spawn a new battery
+        batterySpawner.SpawnAdditionalObjects(1);
+
+        // Inform player that he has picked up a battery
         playerObject.GetComponent<PlayerController>().OnBatteryPickedUp(chargeAmount);
     }
 

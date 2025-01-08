@@ -1,29 +1,26 @@
-using TMPro;
 using UnityEngine;
 
 public class Flashlight : MonoBehaviour
 {
-    [Header("Battery Parameters")]
     public float batteryCharge { get; private set; } = 1f;
+
     public float batteryDepletionRate = 1f;
+    public GameObject uiToolObject;
 
-    [Header("References")]
-    public GameObject uiResource;
-
-    private UiResource uiResourceExtracted;
+    private UITool uiToolClass;
     private float cutoffCharge = 0.01f;
 
 
     private void Start()
     {
-        uiResourceExtracted = uiResource.GetComponent<UiResource>();
+        uiToolClass = uiToolObject.GetComponent<UITool>();
     }
 
     // Update is called once per frame
     private void Update()
     {
         // Only discharge if flashlight active
-        if (uiResourceExtracted.active)
+        if (uiToolClass.selected)
         {
             // Calculate new charge
             batteryCharge -= batteryDepletionRate * Time.deltaTime * 0.01f;
@@ -34,7 +31,7 @@ public class Flashlight : MonoBehaviour
             {
                 // Disable flashlight
                 gameObject.SetActive(false);
-                uiResourceExtracted.Toggle();
+                uiToolClass.Toggle();
             }
 
             // Update battery text
@@ -44,7 +41,7 @@ public class Flashlight : MonoBehaviour
 
     private void UpdateUi()
     {
-        uiResourceExtracted.SetDetailText((int)(batteryCharge * 100) + "%");
+        uiToolClass.SetDetailText((int)(batteryCharge * 100) + "%");
     }
 
 
@@ -54,8 +51,8 @@ public class Flashlight : MonoBehaviour
         if (batteryCharge > cutoffCharge)
         {
             // Toggle flashlight
-            gameObject.SetActive(!uiResourceExtracted.active);
-            uiResourceExtracted.Toggle();
+            gameObject.SetActive(!uiToolClass.selected);
+            uiToolClass.Toggle();
         }
     }
 

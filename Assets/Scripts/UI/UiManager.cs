@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,10 +12,15 @@ public enum UiScreen {
 public class UiManager : MonoBehaviour
 {
     public static UiManager Instance { get; private set; }
+
     public UiScreen uiScreen { get; private set; } = UiScreen.MainMenu;
+
+    [Header("UI Screens")]
     public GameObject mainMenuScreen;
     public GameObject pauseScreen;
     public GameObject gameplayScreen;
+
+    [Header("Buttons")]
     public Button btnStartGame;
     public Button btnQuit;
 

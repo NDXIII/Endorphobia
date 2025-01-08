@@ -1,5 +1,3 @@
-using System;
-using Mono.Cecil;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,20 +29,26 @@ public class PlayerController : MonoBehaviour
     [Header("Interact Parameters")]
     public LayerMask interactableLayer;
 
-    public GameObject flashlight;
-    public CharacterController characterController;
 
+    private CharacterController characterController;
     private Vector3 moveVelocity;
     private Vector2 moveInput;
     private Vector2 lookInput;
+    private Flashlight flashlight;
     private float rotation;
 
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        flashlight = GetComponentInChildren<Flashlight>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (flashlight == null || characterController == null)
+        {
+            Debug.LogError("Flashlight or CharacterController not found");
+        }
     }
 
     // Update is called once per frame
@@ -178,9 +182,8 @@ public class PlayerController : MonoBehaviour
 
     public void HandleFlashlightInput(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-        {
-            flashlight.GetComponent<Flashlight>().Toggle();
+        if (ctx.performed) {
+            flashlight.Toggle();
         }
     }
 }

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class TimerStats : MonoBehaviour
+public class UiTimerStats : MonoBehaviour
 {
     public TMP_Text txtTimer;
 

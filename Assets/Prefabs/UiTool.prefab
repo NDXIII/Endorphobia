@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 8143421023294523367}
   - component: {fileID: 7158453521737523698}
   m_Layer: 5
-  m_Name: UiResource
+  m_Name: UiTool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
