@@ -1,3 +1,5 @@
+using Unity.Behavior;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +31,8 @@ public class PlayerController : MonoBehaviour
     [Header("Interact Parameters")]
     public LayerMask interactableLayer;
 
+    private TestEvent event1;
+
 
     private CharacterController characterController;
     private Vector3 moveVelocity;
@@ -54,6 +58,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            event1 = ScriptableObject.CreateInstance<TestEvent>();
+            GameManager.Instance.GetBoss().GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "TestEvent").ObjectValue = event1;
+            event1.SendEventMessage();
+        }
+
         // Player movement
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
