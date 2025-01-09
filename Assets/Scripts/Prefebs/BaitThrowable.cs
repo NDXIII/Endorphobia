@@ -12,7 +12,7 @@ public class BaitThrowable : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //GameManager.Instance.GetBoss().GetComponent<BehaviorGraphAgent>().BlackboardReference.SetVariableValue("LastBaitLocation", transform);
-        GameManager.Instance.GetBoss().GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastBaitLocation").ObjectValue = transform;
-        GameManager.Instance.GetBoss().GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastBaitObject").ObjectValue = this.gameObject;
+        GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastBaitLocation").ObjectValue = transform;
+        GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastBaitObject").ObjectValue = this.gameObject;
     }
 }

@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     public ObjectSpawner baitSpawner;
 
     [Header("Game Objects")]
-    public GameObject playerObject;
-    public GameObject bossObject;
+    public GameObject player;
+    public GameObject boss;
 
 
     private void Awake() {
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
 
         // Disable player
-        playerObject.SetActive(false);
+        player.SetActive(false);
 
         // Freeze Game
         Time.timeScale = 0f;
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         mainMenuCamera.enabled = false;
 
         // Enable player
-        playerObject.SetActive(true);
+        player.SetActive(true);
 
         // Unfreeze Game
         Time.timeScale = 1f;
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
         // Freeze game
         Time.timeScale = 0f;
-        playerObject.GetComponent<PlayerController>().canMove = false;
+        player.GetComponent<PlayerController>().canMove = false;
 
         // Show pause screen
         UiManager.Instance.ShowPauseScreen();
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
 
         // Unfreeze game
-        playerObject.GetComponent<PlayerController>().canMove = true;
+        player.GetComponent<PlayerController>().canMove = true;
         Time.timeScale = 1f;
     }
 
@@ -107,11 +107,6 @@ public class GameManager : MonoBehaviour
         }
 
         // Inform player that he has picked up an interactable
-        playerObject.GetComponent<PlayerController>().OnInteractablePickedUp(type, amount);
-    }
-
-    public GameObject GetBoss()
-    {
-        return bossObject;
+        player.GetComponent<PlayerController>().OnInteractablePickedUp(type, amount);
     }
 }

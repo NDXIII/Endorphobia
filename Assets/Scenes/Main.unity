@@ -21727,8 +21727,8 @@ MonoBehaviour:
   mainMenuCamera: {fileID: 1488739024}
   batterySpawner: {fileID: 1158291974}
   baitSpawner: {fileID: 801444052}
-  playerObject: {fileID: 1050979845}
-  bossObject: {fileID: 362239167}
+  player: {fileID: 1050979845}
+  boss: {fileID: 362239167}
 --- !u!4 &1503503704
 Transform:
   m_ObjectHideFlags: 0
