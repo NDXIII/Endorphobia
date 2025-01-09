@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5143444396878863435}
   - component: {fileID: 7758580649789466487}
-  - component: {fileID: 8126088384118157414}
   - component: {fileID: 5278195262494913928}
   - component: {fileID: 5120869853738707850}
   - component: {fileID: 3154393734897716326}
+  - component: {fileID: 6259083825710813135}
   m_Layer: 10
-  m_Name: Stone
+  m_Name: BaitThrowable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,18 +44,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3628649190717448814}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &8126088384118157414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3628649190717448814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1ca42b174a0bcc4aa0be83fb611415d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &5278195262494913928
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -149,3 +137,15 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &6259083825710813135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628649190717448814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21dc44170a0dc1afd8dab212f2420783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Flashlight : MonoBehaviour
+public class FlashlightTool : MonoBehaviour
 {
     public float batteryCharge { get; private set; } = 1f;
 
@@ -31,7 +31,7 @@ public class Flashlight : MonoBehaviour
             {
                 // Disable flashlight
                 gameObject.SetActive(false);
-                uiToolClass.Toggle();
+                uiToolClass.Select(false);
             }
 
             // Update battery text
@@ -52,7 +52,7 @@ public class Flashlight : MonoBehaviour
         {
             // Toggle flashlight
             gameObject.SetActive(!uiToolClass.selected);
-            uiToolClass.Toggle();
+            uiToolClass.Select(!uiToolClass.selected);
         }
     }
 
