@@ -14,9 +14,14 @@ public class UITool : MonoBehaviour {
     }
 
 
-    public void Toggle() {
-        selected = !selected;
+    public void Select(bool select = true) {
+        selected = select;
         canvasGroup.alpha = selected ? 1.0f : opacityDeactivated;
+    }
+
+    public void ToggleSelection() {
+        selected = !selected;
+        Select(selected);
     }
 
     public string GetDetailText(string text) {

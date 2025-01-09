@@ -18,14 +18,6 @@ public class PlayerController : MonoBehaviour
     public float lookSpeed = 0.5f;
     public float lookLimit = 90f;
 
-    [Header("Bait Throw Parameters")]
-    public GameObject baitPrefab;
-    public Transform baitSpawnPoint;
-    public float throwForce = 25f;
-    public float throwCooldown = 3f;
-    private GameObject currentBaitObj;
-    private float nextThrowTime = 0f;
-
     [Header("Interact Parameters")]
     public LayerMask interactableLayer;
 
@@ -34,14 +26,20 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveVelocity;
     private Vector2 moveInput;
     private Vector2 lookInput;
-    private Flashlight flashlight;
     private float rotation;
+    private FlashlightTool flashlight;
+    private BaitTool baitTool;
+    
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        // Get components
         characterController = GetComponent<CharacterController>();
-        flashlight = GetComponentInChildren<Flashlight>();
+        flashlight = GetComponentInChildren<FlashlightTool>();
+        baitTool = GetComponentInChildren<BaitTool>();
+
+        // Hide cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -52,7 +50,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Player movement
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -83,36 +81,12 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveVelocity * Time.deltaTime);
     }
 
-    private void ThrowBait()
-    {
-        // Cooldown
-        if (Time.time < nextThrowTime)
-        {
-            return;
-        }
-        nextThrowTime = Time.time + throwCooldown;
-
-
-        // Instantiate bait prefab
-        if (currentBaitObj != null)
-        {
-            Destroy(currentBaitObj);
-        }
-        currentBaitObj = Instantiate(baitPrefab, baitSpawnPoint.position, transform.rotation);
-
-        // Add force to bait
-        Rigidbody rb = currentBaitObj.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.AddForce(fpsCamera.transform.forward * throwForce, ForceMode.Impulse);
-        }
-    }
 
     private void Interact()
     {
         // Raycast to detect interactable objects
         RaycastHit hit;
-        Debug.DrawRay(fpsCamera.transform.position, fpsCamera.transform.forward * 5f, Color.red, 1f);
+        //Debug.DrawRay(fpsCamera.transform.position, fpsCamera.transform.forward * 5f, Color.red, 1f);
         if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, 5f, interactableLayer))
         {
             //Debug.Log(hit.collider.name);
@@ -125,8 +99,15 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnBatteryPickedUp(float chargeAmount) {
-        flashlight.GetComponent<Flashlight>().ChargeBattery(chargeAmount);
+    public void OnInteractablePickedUp(InteractableType type, float amount) {
+        switch (type) {
+            case InteractableType.Battery:
+                flashlight.GetComponent<FlashlightTool>().ChargeBattery(amount);
+                break;
+            default:
+                baitTool.Refill();
+                break;
+        }
     }
 
 
@@ -168,7 +149,7 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.performed)
         {
-            ThrowBait();
+            baitTool.Throw();
         }
     }
 

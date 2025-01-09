@@ -4,7 +4,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Camera mainMenuCamera;
+
+    [Header("Spawners")]
     public ObjectSpawner batterySpawner;
+    public ObjectSpawner baitSpawner;
 
     [Header("Game Objects")]
     public GameObject playerObject;
@@ -92,12 +95,19 @@ public class GameManager : MonoBehaviour
         mainMenuCamera.enabled = false;
     }
 
-    public void OnBatteryPickedUp(float chargeAmount) {
-        // Spawn a new battery
-        batterySpawner.SpawnAdditionalObjects(1);
+    public void OnInteractablePickedUp(InteractableType type, float amount) {
+        // Spawn a new interactables
+        switch (type) {
+            case InteractableType.Battery:
+                batterySpawner.SpawnAdditionalObjects(1);
+                break;
+            default:
+                baitSpawner.SpawnAdditionalObjects(1);
+                break;
+        }
 
-        // Inform player that he has picked up a battery
-        playerObject.GetComponent<PlayerController>().OnBatteryPickedUp(chargeAmount);
+        // Inform player that he has picked up an interactable
+        playerObject.GetComponent<PlayerController>().OnInteractablePickedUp(type, amount);
     }
 
     public GameObject GetBoss()
