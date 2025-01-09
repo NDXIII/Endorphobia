@@ -6,6 +6,7 @@ public enum UiScreen {
     None,
     MainMenu,
     Pause,
+    Death,
     Gameplay
 }
 
@@ -18,6 +19,7 @@ public class UiManager : MonoBehaviour
     [Header("UI Screens")]
     public GameObject mainMenuScreen;
     public GameObject pauseScreen;
+    public GameObject deathScreen;
     public GameObject gameplayScreen;
 
     [Header("Buttons")]
@@ -34,44 +36,67 @@ public class UiManager : MonoBehaviour
             Instance = this; 
         }
 
-        // Configure screens
-        mainMenuScreen.SetActive(true);
-        pauseScreen.SetActive(false);
-        gameplayScreen.SetActive(false);
+        // Show main menu
+        ShowScreen(UiScreen.MainMenu);
     }
     
 
-    public void ShowPauseScreen() {
-        // Return if main menu already opened
-        if (uiScreen == UiScreen.Pause) {
-            return;
+    public void ShowScreen(UiScreen screen) {
+        // Show corresponding screen
+        switch(screen)
+        {
+            case UiScreen.MainMenu:
+                mainMenuScreen.SetActive(true);
+                pauseScreen.SetActive(false);
+                deathScreen.SetActive(false);
+                gameplayScreen.SetActive(false);
+                break;
+
+            case UiScreen.Pause:
+                mainMenuScreen.SetActive(false);
+                pauseScreen.SetActive(true);
+                deathScreen.SetActive(false);
+                gameplayScreen.SetActive(false);
+                break;
+
+            case UiScreen.Death:
+                mainMenuScreen.SetActive(false);
+                pauseScreen.SetActive(false);
+                deathScreen.SetActive(true);
+                gameplayScreen.SetActive(false);
+                break;
+
+            case UiScreen.Gameplay:
+                mainMenuScreen.SetActive(false);
+                pauseScreen.SetActive(false);
+                deathScreen.SetActive(false);
+                gameplayScreen.SetActive(true);
+                break;
+
+            default:
+                mainMenuScreen.SetActive(false);
+                pauseScreen.SetActive(false);
+                deathScreen.SetActive(false);
+                gameplayScreen.SetActive(false);
+                break;
         }
 
-        // Hide gameplay screen
-        gameplayScreen.SetActive(false);
-
-        // Show pause screen
-        pauseScreen.SetActive(true);
-        uiScreen = UiScreen.Pause;
+        // Update screen
+        uiScreen = screen;
     }
 
 
     public void OnStartButton() {
-        mainMenuScreen.SetActive(false);
-        gameplayScreen.SetActive(true);
-        uiScreen = UiScreen.Gameplay;
+        ShowScreen(UiScreen.Gameplay);
         GameManager.Instance.StartGame();
     }
 
     public void OnResumeButton() {
-        pauseScreen.SetActive(false);
-        gameplayScreen.SetActive(true);
-        uiScreen = UiScreen.Gameplay;
+        ShowScreen(UiScreen.Gameplay);
         GameManager.Instance.ResumeGame();
     }
 
     public void OnQuitButton() {
-        uiScreen = UiScreen.None;
         Application.Quit();
     }
 }

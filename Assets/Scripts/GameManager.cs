@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerController>().canMove = false;
 
         // Show pause screen
-        UiManager.Instance.ShowPauseScreen();
+        UiManager.Instance.ShowScreen(UiScreen.Pause);
     }
 
     public void ResumeGame() {
