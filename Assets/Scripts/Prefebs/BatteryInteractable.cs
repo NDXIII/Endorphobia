@@ -1,3 +1,4 @@
+using Unity.Behavior;
 using UnityEngine;
 
 public class BatteryInteractable : MonoBehaviour
@@ -22,9 +23,13 @@ public class BatteryInteractable : MonoBehaviour
 
     public void Pickup()
     {
-        if(isTrapped)
+        if (isTrapped)
         {
             Debug.Log("Battery is trapped!");
+            TrapEvent trapEvent = ScriptableObject.CreateInstance<TrapEvent>();
+            GameManager.Instance.GetBoss().GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastTrapLocation").ObjectValue = transform.position;
+            GameManager.Instance.GetBoss().GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "TrapEvent").ObjectValue = trapEvent;
+            trapEvent.SendEventMessage();
         }
 
         GameManager.Instance.OnInteractablePickedUp(InteractableType.Battery, pickupChargeAmount);
