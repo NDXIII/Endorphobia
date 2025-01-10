@@ -128,20 +128,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public void HandlePauseInput(InputAction.CallbackContext ctx) {
-        // Check if we are currently not paused
-        if (GameManager.Instance.gameState == GameState.Running) {
-            // Pause the game
-            GameManager.Instance.PauseGame();
-        }
-        else {
-            // Trigger resume button from UI Manager
-            UiManager.Instance.OnResumeButton();
-        }
+        // Toggle between pause and resume
+        GameManager.Instance.SetState(GameManager.Instance.gameState == GameState.Playing ? GameState.Paused : GameState.Playing);
     }
 
     public void HandleThrowBaitInput(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && canMove)
         {
             baitTool.Throw();
         }
@@ -149,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleInteractInput(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && canMove)
         {
             Interact();
         }
@@ -157,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleFlashlightInput(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed) {
+        if (ctx.performed && canMove) {
             flashlight.Toggle();
         }
     }

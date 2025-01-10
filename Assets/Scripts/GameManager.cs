@@ -3,8 +3,8 @@ using UnityEngine;
 public enum GameState {
     MainMenu,
     Paused,
-    Death,
-    Running,
+    Dead,
+    Playing
 }
 
 public class GameManager : MonoBehaviour
@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject boss;
 
+    private PlayerController playerController;
+
 
     private void Awake() {
         // If there is an instance, and it's not me, delete myself.
@@ -33,19 +35,23 @@ public class GameManager : MonoBehaviour
             Instance = this; 
         }
 
+        // Get components
+        playerController = player.GetComponent<PlayerController>();
+
         // We start in the main menu
-        SetGameState(GameState.MainMenu);
+        SetState(GameState.MainMenu);
     }
 
     private void Update() {
         // Update play time
-        if (gameState == GameState.Running) {
+        if (gameState == GameState.Playing) {
             playTimeSeconds += Time.deltaTime;
         }
     }
 
 
-    public void SetGameState(GameState state) {
+    public void SetState(GameState state) {
+        // Switch to corresponding game state
         switch(state)
         {
             case GameState.MainMenu:
@@ -55,102 +61,42 @@ public class GameManager : MonoBehaviour
                 mainMenuCamera.enabled = true;
                 playTimeSeconds = 0f;
                 Time.timeScale = 1f;
+                UiManager.Instance.ShowScreen(UiScreen.MainMenu);
                 break;
 
             case GameState.Paused:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                mainMenuCamera.enabled = false;
+                player.SetActive(true);
+                playerController.canMove = false;
                 Time.timeScale = 0f;
-                player.GetComponent<PlayerController>().canMove = false;
                 UiManager.Instance.ShowScreen(UiScreen.Pause);
                 break;
 
-            case GameState.Running:
+            case GameState.Dead:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                mainMenuCamera.enabled = false;
+                player.SetActive(true);
+                playerController.canMove = false;
+                Time.timeScale = 0f;
+                UiManager.Instance.ShowScreen(UiScreen.Death);
+                break;
+
+            case GameState.Playing:
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 mainMenuCamera.enabled = false;
                 player.SetActive(true);
+                playerController.canMove = true;
                 Time.timeScale = 1f;
+                UiManager.Instance.ShowScreen(UiScreen.Gameplay);
                 break;
         }
 
-        // Apply game state
+        // Apply new game state
         gameState = state;
-    }
-
-    public void StartGame() {
-        // Hide cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        // Disable menu camera
-        mainMenuCamera.enabled = false;
-
-        // Enable player
-        player.SetActive(true);
-
-        // Unfreeze Game
-        Time.timeScale = 1f;
-
-        // Game is running now
-        gameState = GameState.Running;
-    }
-
-    public void PauseGame() {
-        // Show cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        // Freeze game
-        Time.timeScale = 0f;
-        player.GetComponent<PlayerController>().canMove = false;
-
-        // Show pause screen
-        UiManager.Instance.ShowScreen(UiScreen.Pause);
-
-        // Game is frozen now
-        gameState = GameState.Paused;
-    }
-
-    public void ResumeGame() {
-        // Hide cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        // Unfreeze game
-        player.GetComponent<PlayerController>().canMove = true;
-        Time.timeScale = 1f;
-
-        // Game is running now
-        gameState = GameState.Running;
-    }
-
-
-    public void OnDeath() {
-        // Show cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        // Enable menu camera
-        mainMenuCamera.enabled = true;
-
-        // Show respawn screen
-        //UiManager.Instance.ShowRespawnScreen();
-
-        // Game is frozen now
-        gameState = GameState.Paused;
-    }
-
-    public void OnRespawn() {
-        // Hide cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        // Disable menu camera
-        mainMenuCamera.enabled = false;
-
-        // Game is running now
-        gameState = GameState.Running;
     }
 
     public void OnInteractablePickedUp(InteractableType type, float amount) {
@@ -165,6 +111,6 @@ public class GameManager : MonoBehaviour
         }
 
         // Inform player that he has picked up an interactable
-        player.GetComponent<PlayerController>().OnInteractablePickedUp(type, amount);
+        playerController.OnInteractablePickedUp(type, amount);
     }
 }

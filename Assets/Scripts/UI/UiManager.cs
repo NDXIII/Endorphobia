@@ -35,6 +35,9 @@ public class UiManager : MonoBehaviour
         else { 
             Instance = this; 
         }
+
+        // Show main menu
+        ShowScreen(UiScreen.None);
     }
     
 
@@ -84,13 +87,11 @@ public class UiManager : MonoBehaviour
 
 
     public void OnStartButton() {
-        ShowScreen(UiScreen.Gameplay);
-        GameManager.Instance.StartGame();
+        GameManager.Instance.SetState(GameState.Playing);
     }
 
     public void OnResumeButton() {
-        ShowScreen(UiScreen.Gameplay);
-        GameManager.Instance.ResumeGame();
+        GameManager.Instance.SetState(GameState.Playing);
     }
 
     public void OnQuitButton() {
