@@ -38,15 +38,6 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         flashlight = GetComponentInChildren<FlashlightTool>();
         baitTool = GetComponentInChildren<BaitTool>();
-
-        // Hide cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        if (flashlight == null || characterController == null)
-        {
-            Debug.LogError("Flashlight or CharacterController not found");
-        }
     }
 
     // Update is called once per frame
@@ -84,13 +75,16 @@ public class PlayerController : MonoBehaviour
 
     private void Interact()
     {
-        // Raycast to detect interactable objects
-        RaycastHit hit;
-        //Debug.DrawRay(fpsCamera.transform.position, fpsCamera.transform.forward * 5f, Color.red, 1f);
-        if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, 5f, interactableLayer))
+        // Get all interactable objects in range
+        Collider[] collider = Physics.OverlapSphere(fpsCamera.transform.position, Interactable.pickupRadius, interactableLayer);
+
+        // Check if there are any interactable objects
+        if (collider.Length > 0)
         {
-            //Debug.Log(hit.collider.name);
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            // Get the interactable component
+            Interactable interactable = collider[0].GetComponent<Interactable>();
+
+            // Interact with the object if valid
             if (interactable != null)
             {
                 interactable.Interact();

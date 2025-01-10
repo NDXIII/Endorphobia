@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class PickupUI : MonoBehaviour
 {
-    public float fadeOutDistance = 5.0f;
-
     private Canvas canvas;
+    private Camera playerCamera;
 
 
     // Start is called before the first frame update
@@ -12,19 +11,17 @@ public class PickupUI : MonoBehaviour
     {
         // Get components
         canvas = GetComponent<Canvas>();
+        playerCamera = GameManager.Instance.player.GetComponentInChildren<Camera>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Get player transform
-        Transform playerTransform = GameManager.Instance.player.transform;
-
         // Get distance to player
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, playerCamera.transform.position);
 
         // Look at player
-        transform.rotation = Quaternion.LookRotation(transform.position - playerTransform.position);
-        canvas.enabled = distanceToPlayer < fadeOutDistance;
+        transform.rotation = Quaternion.LookRotation(transform.position - playerCamera.transform.position);
+        canvas.enabled = distanceToPlayer < Interactable.pickupRadius;
     }
 }

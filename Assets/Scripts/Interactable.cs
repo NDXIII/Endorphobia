@@ -10,7 +10,10 @@ public enum InteractableType
 
 public class Interactable : MonoBehaviour
 {
+    static public float pickupRadius = 5f;
+
     public UnityEvent interactEvent;
+
 
     public void Interact()
     {
