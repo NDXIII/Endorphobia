@@ -6,5 +6,6 @@ public enum State
 {
     Chasing,
 	Patrolling,
-    Bait
+    Bait,
+    Trap
 }
