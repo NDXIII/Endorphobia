@@ -7,12 +7,17 @@ public class FlashlightTool : MonoBehaviour
     public float batteryDepletionRate = 1f;
     public GameObject uiToolObject;
 
+    private Light lightSource;
+    private AudioSource audioSource;
     private UITool uiToolClass;
     private float cutoffCharge = 0.01f;
 
 
     private void Start()
     {
+        // Get components
+        lightSource = GetComponent<Light>();
+        audioSource = GetComponent<AudioSource>();
         uiToolClass = uiToolObject.GetComponent<UITool>();
     }
 
@@ -30,7 +35,7 @@ public class FlashlightTool : MonoBehaviour
             if (batteryCharge <= cutoffCharge)
             {
                 // Disable flashlight
-                gameObject.SetActive(false);
+                lightSource.enabled = false;
                 uiToolClass.Select(false);
             }
 
@@ -51,8 +56,11 @@ public class FlashlightTool : MonoBehaviour
         if (batteryCharge > cutoffCharge)
         {
             // Toggle flashlight
-            gameObject.SetActive(!uiToolClass.selected);
+            lightSource.enabled = !lightSource.enabled;
             uiToolClass.Select(!uiToolClass.selected);
+
+            // Play sound effect
+            audioSource.PlayOneShot(audioSource.clip);
         }
     }
 
