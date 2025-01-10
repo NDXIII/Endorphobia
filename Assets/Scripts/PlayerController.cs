@@ -128,8 +128,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void HandlePauseInput(InputAction.CallbackContext ctx) {
-        // Check if we are currently not in the pause screen
-        if (UiManager.Instance.uiScreen != UiScreen.Pause) {
+        // Check if we are currently not paused
+        if (GameManager.Instance.gameState == GameState.Running) {
             // Pause the game
             GameManager.Instance.PauseGame();
         }

@@ -1,8 +1,18 @@
 using UnityEngine;
 
+public enum GameState {
+    MainMenu,
+    Paused,
+    Death,
+    Running,
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    public GameState gameState { get; private set; } = GameState.MainMenu;
+    public float playTimeSeconds { get; private set; } = 0f;
     public Camera mainMenuCamera;
 
     [Header("Spawners")]
@@ -34,6 +44,46 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    private void Update() {
+        // Update play time
+        if (gameState == GameState.Running) {
+            playTimeSeconds += Time.deltaTime;
+        }
+    }
+
+
+    public void SetGameState(GameState state) {
+        switch(state)
+        {
+            case GameState.MainMenu:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                player.SetActive(false);
+                mainMenuCamera.enabled = true;
+                playTimeSeconds = 0f;
+                Time.timeScale = 1f;
+                break;
+
+            case GameState.Paused:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Time.timeScale = 0f;
+                player.GetComponent<PlayerController>().canMove = false;
+                UiManager.Instance.ShowScreen(UiScreen.Pause);
+                break;
+
+            case GameState.Running:
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                mainMenuCamera.enabled = false;
+                player.SetActive(true);
+                Time.timeScale = 1f;
+                break;
+        }
+
+        // Apply game state
+        gameState = state;
+    }
 
     public void StartGame() {
         // Hide cursor
@@ -48,6 +98,9 @@ public class GameManager : MonoBehaviour
 
         // Unfreeze Game
         Time.timeScale = 1f;
+
+        // Game is running now
+        gameState = GameState.Running;
     }
 
     public void PauseGame() {
@@ -61,6 +114,9 @@ public class GameManager : MonoBehaviour
 
         // Show pause screen
         UiManager.Instance.ShowScreen(UiScreen.Pause);
+
+        // Game is frozen now
+        gameState = GameState.Paused;
     }
 
     public void ResumeGame() {
@@ -71,6 +127,9 @@ public class GameManager : MonoBehaviour
         // Unfreeze game
         player.GetComponent<PlayerController>().canMove = true;
         Time.timeScale = 1f;
+
+        // Game is running now
+        gameState = GameState.Running;
     }
 
 
@@ -84,6 +143,9 @@ public class GameManager : MonoBehaviour
 
         // Show respawn screen
         //UiManager.Instance.ShowRespawnScreen();
+
+        // Game is frozen now
+        gameState = GameState.Paused;
     }
 
     public void OnRespawn() {
@@ -93,6 +155,9 @@ public class GameManager : MonoBehaviour
 
         // Disable menu camera
         mainMenuCamera.enabled = false;
+
+        // Game is running now
+        gameState = GameState.Running;
     }
 
     public void OnInteractablePickedUp(InteractableType type, float amount) {

@@ -8,7 +8,7 @@ public class UiTimerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float timeSinceStartup = Time.realtimeSinceStartup;
-        txtTimer.text = string.Format("{0:00}:{1:00}", (int)(timeSinceStartup / 60), (int)(timeSinceStartup % 60));
+        float playTime = GameManager.Instance.playTimeSeconds;
+        txtTimer.text = string.Format("{0:00}:{1:00}", (int)(playTime / 60), (int)(playTime % 60));
     }
 }
