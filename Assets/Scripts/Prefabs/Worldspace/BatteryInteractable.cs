@@ -27,8 +27,8 @@ public class BatteryInteractable : MonoBehaviour
         {
             Debug.Log("Battery is trapped!");
             TrapEvent trapEvent = ScriptableObject.CreateInstance<TrapEvent>();
-            GameManager.Instance.GetBoss().GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastTrapLocation").ObjectValue = transform.position;
-            GameManager.Instance.GetBoss().GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "TrapEvent").ObjectValue = trapEvent;
+            GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastTrapLocation").ObjectValue = transform.position;
+            GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "TrapEvent").ObjectValue = trapEvent;
             trapEvent.SendEventMessage();
         }
 
