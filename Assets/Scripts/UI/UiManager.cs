@@ -94,6 +94,10 @@ public class UiManager : MonoBehaviour
         GameManager.Instance.SetState(GameState.Playing);
     }
 
+    public void OnMainMenuButton() {
+        GameManager.Instance.SetState(GameState.MainMenu);
+    }
+
     public void OnQuitButton() {
         Application.Quit();
     }

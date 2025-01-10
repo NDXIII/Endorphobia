@@ -3,11 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool canMove = true;
-    public bool isSprinting = false;
-
+    [Header("General Parameters")]
+    public Transform spawnPoint;
+    public LayerMask interactableLayer;
 
     [Header("Move Parameter")]
+    public bool canMove = true;
+    public bool isSprinting = false;
     public float walkSpeed = 6f;
     public float sprintSpeed = 12f;
     public float jumpPower = 7f;
@@ -17,9 +19,6 @@ public class PlayerController : MonoBehaviour
     public Camera fpsCamera;
     public float lookSpeed = 0.5f;
     public float lookLimit = 90f;
-
-    [Header("Interact Parameters")]
-    public LayerMask interactableLayer;
 
 
     private CharacterController characterController;
@@ -31,8 +30,7 @@ public class PlayerController : MonoBehaviour
     private BaitTool baitTool;
     
 
-    // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         // Get components
         characterController = GetComponent<CharacterController>();
@@ -90,6 +88,20 @@ public class PlayerController : MonoBehaviour
                 interactable.Interact();
             }
         }
+    }
+
+
+    public void Reset() {
+        // Reset player transform
+        transform.position = spawnPoint.position;
+        transform.rotation = spawnPoint.rotation;
+
+        // Reset camera rotation
+        rotation = 0f;
+
+        // Reset tools
+        flashlight.ChargeBattery(1f);
+        baitTool.SetStock(1);
     }
 
 

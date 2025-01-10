@@ -37,8 +37,10 @@ public class GameManager : MonoBehaviour
 
         // Get components
         playerController = player.GetComponent<PlayerController>();
+    }
 
-        // We start in the main menu
+    private void Start() {
+        // Set initial game state
         SetState(GameState.MainMenu);
     }
 
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
                 player.SetActive(false);
                 mainMenuCamera.enabled = true;
                 playTimeSeconds = 0f;
+                playerController.Reset();
                 Time.timeScale = 1f;
                 UiManager.Instance.ShowScreen(UiScreen.MainMenu);
                 break;

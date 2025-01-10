@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BaitTool : MonoBehaviour
 {
-    public int amount { get; private set; } = 1;
+    public uint amount { get; private set; } = 1;
 
     [Header("Game Objects")]
     public GameObject prefabObject;
@@ -37,13 +37,18 @@ public class BaitTool : MonoBehaviour
     }
 
 
-    public void Refill(int amount = 1)
+    public void SetStock(uint amount)
     {
         // Calculate new amount
-        this.amount += amount;
+        this.amount = amount;
 
         // Update the UI
         UpdateUi();
+    }
+
+    public void Refill(uint amount = 1)
+    {
+        SetStock(this.amount + amount);
     }
 
     public void Throw()

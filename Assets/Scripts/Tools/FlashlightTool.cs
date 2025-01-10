@@ -49,7 +49,6 @@ public class FlashlightTool : MonoBehaviour
         uiToolClass.SetDetailText((int)(batteryCharge * 100) + "%");
     }
 
-
     public void Toggle()
     {
         // Is the battery full enough?
