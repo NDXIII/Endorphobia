@@ -33,15 +33,8 @@ public class GameManager : MonoBehaviour
             Instance = this; 
         }
 
-        // Show cursor
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        // Disable player
-        player.SetActive(false);
-
-        // Freeze Game
-        Time.timeScale = 0f;
+        // We start in the main menu
+        SetGameState(GameState.MainMenu);
     }
 
     private void Update() {

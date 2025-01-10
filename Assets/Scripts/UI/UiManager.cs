@@ -35,9 +35,6 @@ public class UiManager : MonoBehaviour
         else { 
             Instance = this; 
         }
-
-        // Show main menu
-        ShowScreen(UiScreen.MainMenu);
     }
     
 
