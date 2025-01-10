@@ -12,8 +12,9 @@ public class BaitTool : MonoBehaviour
     public float throwForce = 25f;
     public float throwCooldown = 0.1f;
 
-    private UITool uiToolClass;
     private GameObject currentObj;
+    private AudioSource audioSource;
+    private UITool uiToolClass;
     private float nextThrowTime = 0f;
 
 
@@ -21,6 +22,7 @@ public class BaitTool : MonoBehaviour
     private void Start()
     {
         // Get components
+        audioSource = GetComponent<AudioSource>();
         uiToolClass = uiToolObject.GetComponent<UITool>();
         
         // Update the UI
@@ -74,10 +76,11 @@ public class BaitTool : MonoBehaviour
             rb.AddForce(transform.forward * throwForce, ForceMode.Impulse);
         }
 
-        // Update new amount
+        // Update amount and UI
         amount--;
-
-        // Update the UI
         UpdateUi();
+
+        // Play sound
+        audioSource.PlayOneShot(audioSource.clip);
     }
 }
