@@ -105,6 +105,16 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // Check if the player has collided with the boss
+        if (hit.gameObject.CompareTag("Boss"))
+        {
+            // Player is dead now
+            GameManager.Instance.SetState(GameState.Dead);
+        }
+    }
+
     public void OnInteractablePickedUp(InteractableType type, float amount) {
         switch (type) {
             case InteractableType.Battery:

@@ -5,15 +5,8 @@ public class Boss : MonoBehaviour
     public float batteryTrapRadius = 3f;
 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Check if there is a BatterInteractable object nearby
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, batteryTrapRadius);

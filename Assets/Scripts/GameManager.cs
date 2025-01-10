@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState { get; private set; } = GameState.MainMenu;
     public float playTimeSeconds { get; private set; } = 0f;
-    public Camera mainMenuCamera;
+    public Camera menuCamera;
 
     [Header("Spawners")]
     public ObjectSpawner batterySpawner;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 player.SetActive(false);
-                mainMenuCamera.enabled = true;
+                menuCamera.enabled = true;
                 playTimeSeconds = 0f;
                 playerController.Reset();
                 Time.timeScale = 1f;
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
             case GameState.Paused:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                mainMenuCamera.enabled = false;
+                menuCamera.enabled = false;
                 player.SetActive(true);
                 playerController.canMove = false;
                 Time.timeScale = 0f;
@@ -80,17 +80,17 @@ public class GameManager : MonoBehaviour
             case GameState.Dead:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                mainMenuCamera.enabled = false;
-                player.SetActive(true);
-                playerController.canMove = false;
-                Time.timeScale = 0f;
+                player.SetActive(false);
+                menuCamera.enabled = true;
+                playerController.Reset();
+                Time.timeScale = 1f;
                 UiManager.Instance.ShowScreen(UiScreen.Death);
                 break;
 
             case GameState.Playing:
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                mainMenuCamera.enabled = false;
+                menuCamera.enabled = false;
                 player.SetActive(true);
                 playerController.canMove = true;
                 Time.timeScale = 1f;
