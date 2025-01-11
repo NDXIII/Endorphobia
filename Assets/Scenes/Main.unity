@@ -4712,9 +4712,18 @@ MonoBehaviour:
   - rid: 7144497513077145749
   - rid: 7144497513685058244
   - rid: 7144497515768578369
+  - rid: 1914550172370338483
   references:
     version: 2
     RefIds:
+    - rid: 1914550172370338483
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 8334116435656396616
+          m_Value1: 12209021830254846195
+        Name: RedLight
+        m_Value: {fileID: 8902267992420503947, guid: 28ecd6cad67281f4c96f05c88a9fff2f, type: 3}
     - rid: 6887479818749739328
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
