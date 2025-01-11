@@ -272,6 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupChargeAmount: 0.25
+  trappedSound: {fileID: 8300000, guid: 0ce9c4507a8aaaa41ab27ce8e122326e, type: 3}
+  trappedSoundVolume: 0.5
 --- !u!1001 &6288097900997049094
 PrefabInstance:
   m_ObjectHideFlags: 0

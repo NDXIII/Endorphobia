@@ -4,6 +4,11 @@ using UnityEngine;
 public class BatteryInteractable : MonoBehaviour
 {
     public float pickupChargeAmount = 0.25f;
+
+    [Header("Trapped")]
+    public AudioClip trappedSound;
+    public float trappedSoundVolume = 0.5f;
+
     private bool isTrapped = false;
 
     public void SetTrapped(bool trapped)
@@ -26,6 +31,9 @@ public class BatteryInteractable : MonoBehaviour
         if (isTrapped)
         {
             Debug.Log("Battery is trapped!");
+            GameManager.Instance.PlaySound(trappedSound, trappedSoundVolume);
+
+
             TrapEvent trapEvent = ScriptableObject.CreateInstance<TrapEvent>();
             GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastTrapLocation").ObjectValue = transform.position;
             GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "TrapEvent").ObjectValue = trapEvent;

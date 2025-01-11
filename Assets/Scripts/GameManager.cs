@@ -123,8 +123,8 @@ public class GameManager : MonoBehaviour
         playerController.OnInteractablePickedUp(type, amount);
     }
 
-    public void PlaySound(AudioClip clip)
+    public void PlaySound(AudioClip clip, float volume = 1f)
     {
-        AudioSource.PlayClipAtPoint(clip, player.transform.position);
+        AudioSource.PlayClipAtPoint(clip, player.transform.position, volume);
     }
 }
