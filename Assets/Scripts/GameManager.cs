@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject boss;
 
+    [Header("Audio")]
+    public AudioClip pickupSound;
+
     private PlayerController playerController;
 
 
@@ -103,6 +106,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnInteractablePickedUp(InteractableType type, float amount) {
+        //Play sound
+        PlaySound(pickupSound);
+
         // Spawn a new interactables
         switch (type) {
             case InteractableType.Battery:
@@ -115,5 +121,10 @@ public class GameManager : MonoBehaviour
 
         // Inform player that he has picked up an interactable
         playerController.OnInteractablePickedUp(type, amount);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        AudioSource.PlayClipAtPoint(clip, player.transform.position);
     }
 }
