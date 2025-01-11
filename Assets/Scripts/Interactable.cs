@@ -4,7 +4,8 @@ using UnityEngine.Events;
 
 public enum InteractableType
 {
-    Battery,
+    BatteryNormal,
+    BatteryTrap,
     Bait
 }
 

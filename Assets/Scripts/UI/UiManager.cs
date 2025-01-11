@@ -26,6 +26,8 @@ public class UiManager : MonoBehaviour
     public Button btnStartGame;
     public Button btnQuit;
 
+    private AudioSource audioSource;
+
 
     private void Awake() {
         // If there is an instance, and it's not me, delete myself.
@@ -35,6 +37,9 @@ public class UiManager : MonoBehaviour
         else { 
             Instance = this; 
         }
+
+        // Get components
+        audioSource = GetComponent<AudioSource>();
 
         // Show main menu
         ShowScreen(UiScreen.None);
@@ -57,6 +62,7 @@ public class UiManager : MonoBehaviour
                 pauseScreen.SetActive(true);
                 deathScreen.SetActive(false);
                 gameplayScreen.SetActive(false);
+                audioSource.PlayOneShot(audioSource.clip);
                 break;
 
             case UiScreen.Death:
@@ -71,6 +77,7 @@ public class UiManager : MonoBehaviour
                 pauseScreen.SetActive(false);
                 deathScreen.SetActive(false);
                 gameplayScreen.SetActive(true);
+                audioSource.PlayOneShot(audioSource.clip);
                 break;
 
             default:
@@ -95,10 +102,12 @@ public class UiManager : MonoBehaviour
     }
 
     public void OnMainMenuButton() {
+        audioSource.PlayOneShot(audioSource.clip);
         GameManager.Instance.SetState(GameState.MainMenu);
     }
 
     public void OnQuitButton() {
+        audioSource.PlayOneShot(audioSource.clip);
         Application.Quit();
     }
 }

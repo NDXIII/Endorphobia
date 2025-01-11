@@ -27,16 +27,18 @@ public class PlayerController : MonoBehaviour
     public AudioClip jumpSound;
     public float jumpVolume = 0.25f;
     public AudioClip catchSound;
-     public float catchVolume = 0.5f;
+    public float catchVolume = 0.5f;
+    public AudioClip pickupNormalSound;
+    public AudioClip pickupTrapSound;
+    public float pickupVolume = 0.5f;
+
     private AudioSource audioSource;
-    private float lastStepDistance = 0f;
-
-
     private CharacterController characterController;
     private Vector3 moveVelocity;
     private Vector2 moveInput;
     private Vector2 lookInput;
     private float rotation;
+    private float lastStepDistance = 0f;
     private NightVisionTool nightVision;
     private BaitTool baitTool;
     
@@ -137,7 +139,7 @@ public class PlayerController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // Check if the player has collided with the boss
-        if (hit.gameObject.CompareTag("Boss"))
+        if (hit.gameObject.CompareTag("Boss") && GameManager.Instance.gameState == GameState.Playing)
         {
             // Player is dead now
             audioSource.PlayOneShot(catchSound, catchVolume);
@@ -146,12 +148,18 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnInteractablePickedUp(InteractableType type, float amount) {
+        // Interact correspondingly
         switch (type) {
-            case InteractableType.Battery:
+            case InteractableType.BatteryNormal:
                 nightVision.GetComponent<NightVisionTool>().ChargeBattery(amount);
+                audioSource.PlayOneShot(pickupNormalSound, pickupVolume);
+                break;
+            case InteractableType.BatteryTrap:
+                audioSource.PlayOneShot(pickupTrapSound, pickupVolume);
                 break;
             default:
                 baitTool.Refill();
+                audioSource.PlayOneShot(pickupNormalSound, pickupVolume);
                 break;
         }
     }

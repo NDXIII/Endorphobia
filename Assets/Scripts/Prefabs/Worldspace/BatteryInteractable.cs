@@ -3,44 +3,34 @@ using UnityEngine;
 
 public class BatteryInteractable : MonoBehaviour
 {
+    public bool isTrapped { get; private set; } = false;
     public float pickupChargeAmount = 0.25f;
 
-    [Header("Trapped")]
-    public AudioClip trappedSound;
-    public float trappedSoundVolume = 0.5f;
-
-    private bool isTrapped = false;
 
     public void SetTrapped(bool trapped)
     {
         isTrapped = trapped;
 
-        if(isTrapped)
+        /*if(isTrapped)
         {
             Debug.Log("Battery " + this.gameObject + " has been trapped!");
-        }
-    }
-
-    public bool IsTrapped()
-    {
-        return isTrapped;
+        }*/
     }
 
     public void Pickup()
     {
         if (isTrapped)
         {
-            Debug.Log("Battery is trapped!");
-            GameManager.Instance.PlaySound(trappedSound, trappedSoundVolume);
-
-
             TrapEvent trapEvent = ScriptableObject.CreateInstance<TrapEvent>();
             GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastTrapLocation").ObjectValue = transform.position;
             GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "TrapEvent").ObjectValue = trapEvent;
             trapEvent.SendEventMessage();
         }
 
-        GameManager.Instance.OnInteractablePickedUp(InteractableType.Battery, pickupChargeAmount);
+        // Notify game manager
+        GameManager.Instance.OnInteractablePickedUp(isTrapped ? InteractableType.BatteryTrap : InteractableType.BatteryNormal, pickupChargeAmount);
+
+        // Destroy this object
         Destroy(gameObject);
     }
 }
