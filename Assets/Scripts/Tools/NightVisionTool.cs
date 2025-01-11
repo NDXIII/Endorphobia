@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class FlashlightTool : MonoBehaviour
+public class NightVisionTool : MonoBehaviour
 {
     public float batteryCharge { get; private set; } = 1f;
 
     public float batteryDepletionRate = 1f;
+    public Volume nightVisionVolume;
     public GameObject uiToolObject;
-
+    
     private Light lightSource;
     private AudioSource audioSource;
     private UITool uiToolClass;
@@ -19,12 +21,15 @@ public class FlashlightTool : MonoBehaviour
         lightSource = GetComponent<Light>();
         audioSource = GetComponent<AudioSource>();
         uiToolClass = uiToolObject.GetComponent<UITool>();
+
+        // Set start state
+        SwitchOn(uiToolClass.selected);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        // Only discharge if flashlight active
+        // Only discharge if night vision active
         if (uiToolClass.selected)
         {
             // Calculate new charge
@@ -34,9 +39,8 @@ public class FlashlightTool : MonoBehaviour
             // Are we under the cutoff charge
             if (batteryCharge <= cutoffCharge)
             {
-                // Disable flashlight
-                lightSource.enabled = false;
-                uiToolClass.Select(false);
+                // Disable night vision
+                SwitchOn(false);
             }
 
             // Update battery text
@@ -46,21 +50,34 @@ public class FlashlightTool : MonoBehaviour
 
     private void UpdateUi()
     {
+        // Update charge text
         uiToolClass.SetDetailText((int)(batteryCharge * 100) + "%");
+    }
+
+    public void SwitchOn(bool enable)
+    {
+        // Disable if battery dead
+        if (batteryCharge <= cutoffCharge)
+        {
+            enable = false;
+        }
+
+        // Play sound effect if state changed
+        if (uiToolClass.selected != enable)
+        {
+            audioSource.PlayOneShot(audioSource.clip);
+        }
+
+        // Set new state
+        nightVisionVolume.enabled = enable;
+        lightSource.enabled = enable;
+        uiToolClass.Select(enable);
     }
 
     public void Toggle()
     {
-        // Is the battery full enough?
-        if (batteryCharge > cutoffCharge)
-        {
-            // Toggle flashlight
-            lightSource.enabled = !lightSource.enabled;
-            uiToolClass.Select(!uiToolClass.selected);
-
-            // Play sound effect
-            audioSource.PlayOneShot(audioSource.clip);
-        }
+        // Toggle night vision
+        SwitchOn(!uiToolClass.selected);
     }
 
     public void ChargeBattery(float chargeAmount)

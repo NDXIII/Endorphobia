@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lookInput;
     private float rotation;
-    private FlashlightTool flashlight;
+    private NightVisionTool flashlight;
     private BaitTool baitTool;
     
 
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         // Get components
         characterController = GetComponent<CharacterController>();
-        flashlight = GetComponentInChildren<FlashlightTool>();
+        flashlight = GetComponentInChildren<NightVisionTool>();
         baitTool = GetComponentInChildren<BaitTool>();
     }
 
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
     public void OnInteractablePickedUp(InteractableType type, float amount) {
         switch (type) {
             case InteractableType.Battery:
-                flashlight.GetComponent<FlashlightTool>().ChargeBattery(amount);
+                flashlight.GetComponent<NightVisionTool>().ChargeBattery(amount);
                 break;
             default:
                 baitTool.Refill();
