@@ -83,10 +83,10 @@ public class GameManager : MonoBehaviour
             case GameState.Dead:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                player.SetActive(false);
-                menuCamera.enabled = true;
-                playerController.Reset();
-                Time.timeScale = 1f;
+                menuCamera.enabled = false;
+                player.SetActive(true);
+                playerController.canMove = false;
+                Time.timeScale = 0f;
                 UiManager.Instance.ShowScreen(UiScreen.Death);
                 break;
 
