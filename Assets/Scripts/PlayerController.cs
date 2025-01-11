@@ -22,7 +22,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Audio")]
     public AudioClip[] stepSounds;
+    public float stepDistance = 3f;
+    public float stepVolume = 0.25f;
     public AudioClip jumpSound;
+    public float jumpVolume = 0.25f;
     private AudioSource audioSource;
     private float lastStepDistance = 0f;
 
@@ -58,13 +61,10 @@ public class PlayerController : MonoBehaviour
         float movementVelocity = moveVelocity.y;
         moveVelocity = (forward * currentSpeedX) + (right * currentSpeedY);
 
-        // Jump
+        // Gravity
         moveVelocity.y = movementVelocity;
         if (!characterController.isGrounded) {
             moveVelocity.y -= gravity * Time.deltaTime;
-
-            // Play jump sound
-            audioSource.PlayOneShot(jumpSound);
         }
 
         // Camera
@@ -77,18 +77,24 @@ public class PlayerController : MonoBehaviour
             transform.rotation *= Quaternion.Euler(0, lookInput.x * lookSpeed, 0);
         }
 
-        characterController.Move(moveVelocity * Time.deltaTime);
-
+        //Debug.Log($"Last step distance: {lastStepDistance} + MoveVelocity: {moveVelocity}");
         // Play random step sound if enough distance has been covered
-        if (moveVelocity.magnitude > 0f)
+        float moveVelocityXZ = new Vector3(moveVelocity.x, 0, moveVelocity.z).magnitude * Time.deltaTime;
+        //Debug.Log($"MoveVelocityXZ: {moveVelocityXZ}");
+        if (moveVelocityXZ > 0f && characterController.isGrounded)
         {
-            lastStepDistance += moveVelocity.magnitude;
-            if (lastStepDistance > 1.5f)
+            lastStepDistance += moveVelocityXZ;
+            if (lastStepDistance > stepDistance)
             {
-                audioSource.PlayOneShot(stepSounds[Random.Range(0, stepSounds.Length)]);
+                // Play random step sound with random pitch
+                audioSource.pitch = Random.Range(0.9f, 1.1f);
+                audioSource.PlayOneShot(stepSounds[Random.Range(0, stepSounds.Length)], stepVolume);
+                
                 lastStepDistance = 0f;
             }
         }
+
+        characterController.Move(moveVelocity * Time.deltaTime);
     }
 
 
@@ -163,6 +169,7 @@ public class PlayerController : MonoBehaviour
     public void HandleJumpInput(InputAction.CallbackContext ctx) {
         if (ctx.performed && canMove && characterController.isGrounded) {
             moveVelocity.y = jumpPower;
+            audioSource.PlayOneShot(jumpSound, jumpVolume);
         }
     }
 
