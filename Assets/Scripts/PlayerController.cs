@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lookInput;
     private float rotation;
-    private NightVisionTool flashlight;
+    private NightVisionTool nightVision;
     private BaitTool baitTool;
     
 
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         // Get components
         characterController = GetComponent<CharacterController>();
-        flashlight = GetComponentInChildren<NightVisionTool>();
+        nightVision = GetComponentInChildren<NightVisionTool>();
         baitTool = GetComponentInChildren<BaitTool>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
         rotation = 0f;
 
         // Reset tools
-        flashlight.ChargeBattery(1f);
+        nightVision.ChargeBattery(1f);
         baitTool.SetStock(1);
     }
 
@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
     public void OnInteractablePickedUp(InteractableType type, float amount) {
         switch (type) {
             case InteractableType.Battery:
-                flashlight.GetComponent<NightVisionTool>().ChargeBattery(amount);
+                nightVision.GetComponent<NightVisionTool>().ChargeBattery(amount);
                 break;
             default:
                 baitTool.Refill();
@@ -191,10 +191,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void HandleFlashlightInput(InputAction.CallbackContext ctx)
+    public void HandleNightVisionInput(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && canMove) {
-            flashlight.Toggle();
+            nightVision.Toggle();
         }
     }
 }

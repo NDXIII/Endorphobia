@@ -12346,7 +12346,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1050979850}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: HandleFlashlightInput
+        m_MethodName: HandleNightVisionInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30196,7 +30196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3771041601171269928, guid: ca7433c05faa611f9aff2b805f10a50b, type: 3}
       propertyPath: m_text
-      value: (F)
+      value: (N)
       objectReference: {fileID: 0}
     - target: {fileID: 5205990593305826586, guid: ca7433c05faa611f9aff2b805f10a50b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -30248,7 +30248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5819618156548733784, guid: ca7433c05faa611f9aff2b805f10a50b, type: 3}
       propertyPath: m_text
-      value: Flashlight
+      value: Night Vision
       objectReference: {fileID: 0}
     - target: {fileID: 6064648580255118694, guid: ca7433c05faa611f9aff2b805f10a50b, type: 3}
       propertyPath: m_text
@@ -30284,7 +30284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7501230082001856709, guid: ca7433c05faa611f9aff2b805f10a50b, type: 3}
       propertyPath: m_Name
-      value: FlashlightTool
+      value: NightVisionTool
       objectReference: {fileID: 0}
     - target: {fileID: 7910422319524900988, guid: ca7433c05faa611f9aff2b805f10a50b, type: 3}
       propertyPath: m_Pivot.x

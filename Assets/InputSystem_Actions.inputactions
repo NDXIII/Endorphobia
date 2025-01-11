@@ -96,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Flashlight",
+                    "name": "Night Vision",
                     "type": "Button",
                     "id": "780e0590-dd2d-496c-b8e5-35c163413dc7",
                     "expectedControlType": "",
@@ -505,11 +505,11 @@
                 {
                     "name": "",
                     "id": "610af6c8-34f0-472f-a144-bff60429da72",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/n",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Flashlight",
+                    "action": "Night Vision",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
