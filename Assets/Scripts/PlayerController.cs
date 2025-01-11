@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour
     public float lookSpeed = 0.5f;
     public float lookLimit = 90f;
 
+    [Header("Audio")]
+    public AudioClip[] stepSounds;
+    public AudioClip jumpSound;
+    private AudioSource audioSource;
+    private float lastStepDistance = 0f;
+
 
     private CharacterController characterController;
     private Vector3 moveVelocity;
@@ -36,6 +42,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         flashlight = GetComponentInChildren<NightVisionTool>();
         baitTool = GetComponentInChildren<BaitTool>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,6 +62,9 @@ public class PlayerController : MonoBehaviour
         moveVelocity.y = movementVelocity;
         if (!characterController.isGrounded) {
             moveVelocity.y -= gravity * Time.deltaTime;
+
+            // Play jump sound
+            audioSource.PlayOneShot(jumpSound);
         }
 
         // Camera
@@ -68,6 +78,17 @@ public class PlayerController : MonoBehaviour
         }
 
         characterController.Move(moveVelocity * Time.deltaTime);
+
+        // Play random step sound if enough distance has been covered
+        if (moveVelocity.magnitude > 0f)
+        {
+            lastStepDistance += moveVelocity.magnitude;
+            if (lastStepDistance > 1.5f)
+            {
+                audioSource.PlayOneShot(stepSounds[Random.Range(0, stepSounds.Length)]);
+                lastStepDistance = 0f;
+            }
+        }
     }
 
 
