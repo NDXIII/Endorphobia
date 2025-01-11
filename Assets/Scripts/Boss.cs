@@ -4,12 +4,16 @@ public class Boss : MonoBehaviour
 {
     public float batteryTrapRadius = 3f;
 
+    private float lastTimeScale;
     private AudioSource audioSource;
 
 
     private void Awake() {
         // Get components
         audioSource = GetComponent<AudioSource>();
+
+        // Remeber last time scale
+        lastTimeScale = Time.timeScale;
     }
 
     // Update is called once per frame
@@ -28,13 +32,19 @@ public class Boss : MonoBehaviour
             }
         }
 
-        // Play audio source only when the game is not paused
-        if (Time.timeScale == 0f) {
-            audioSource.Pause();
-        }
-        else
+        // Check if the time scale has changed
+        if (lastTimeScale != Time.timeScale)
         {
-            audioSource.UnPause();
+            // Play audio source only when the game is not paused
+            if (Time.timeScale == 0f) {
+                audioSource.Pause();
+            }
+            else
+            {
+                audioSource.UnPause();
+            }
+
+            lastTimeScale = Time.timeScale;
         }
     }
 }

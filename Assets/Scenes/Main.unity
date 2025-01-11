@@ -12495,6 +12495,8 @@ MonoBehaviour:
   stepVolume: 0.25
   jumpSound: {fileID: 8300000, guid: 75573d648435aa948a4e87070517cec0, type: 3}
   jumpVolume: 0.25
+  catchSound: {fileID: 8300000, guid: d8528d4520e85a157abae07fea7caa17, type: 3}
+  catchVolume: 0.5
 --- !u!82 &1050979851
 AudioSource:
   m_ObjectHideFlags: 0

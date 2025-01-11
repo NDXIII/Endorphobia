@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public float stepVolume = 0.25f;
     public AudioClip jumpSound;
     public float jumpVolume = 0.25f;
+    public AudioClip catchSound;
+     public float catchVolume = 0.5f;
     private AudioSource audioSource;
     private float lastStepDistance = 0f;
 
@@ -138,6 +140,7 @@ public class PlayerController : MonoBehaviour
         if (hit.gameObject.CompareTag("Boss"))
         {
             // Player is dead now
+            audioSource.PlayOneShot(catchSound, catchVolume);
             GameManager.Instance.SetState(GameState.Dead);
         }
     }
