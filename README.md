@@ -11,5 +11,8 @@
 * Throw: https://www.youtube.com/watch?v=EFY9TX2Fghg
 * Other sounds from ZapSplat: https://www.zapsplat.com/
 
+### Models and Animation
+# Mixamo: https://www.mixamo.com/
+
 ### Font
 * FontAwesome
