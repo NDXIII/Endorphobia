@@ -4,6 +4,13 @@ public class Boss : MonoBehaviour
 {
     public float batteryTrapRadius = 3f;
 
+    private AudioSource audioSource;
+
+
+    private void Awake() {
+        // Get components
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     private void Update()
@@ -19,6 +26,15 @@ public class Boss : MonoBehaviour
                 if(!batteryInteractable.IsTrapped())
                     batteryInteractable.SetTrapped(true);
             }
+        }
+
+        // Play audio source only when the game is not paused
+        if (Time.timeScale == 0f) {
+            audioSource.Pause();
+        }
+        else
+        {
+            audioSource.UnPause();
         }
     }
 }

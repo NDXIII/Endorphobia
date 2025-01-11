@@ -178,8 +178,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void HandlePauseInput(InputAction.CallbackContext ctx) {
-        // Toggle between pause and resume
-        GameManager.Instance.SetState(GameManager.Instance.gameState == GameState.Playing ? GameState.Paused : GameState.Playing);
+        if (ctx.performed && GameManager.Instance.gameState != GameState.Dead)
+        {
+            GameManager.Instance.SetState(GameManager.Instance.gameState == GameState.Playing ? GameState.Paused : GameState.Playing);
+        }
     }
 
     public void HandleThrowBaitInput(InputAction.CallbackContext ctx)
