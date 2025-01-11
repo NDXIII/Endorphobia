@@ -9,6 +9,7 @@
 ### Sound effects
 * Light Switch: https://www.youtube.com/watch?v=YZ47NcSP0o4
 * Throw: https://www.youtube.com/watch?v=EFY9TX2Fghg
+* Boss steps: https://www.youtube.com/watch?v=nKI__J_Vkas
 * Other sounds from ZapSplat: https://www.zapsplat.com/
 
 ### Models and Animation
