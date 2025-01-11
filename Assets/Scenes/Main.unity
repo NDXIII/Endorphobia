@@ -4860,11 +4860,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bbd3278c31bc03f88977eea59a02445d, type: 3}
-  m_Resource: {fileID: 8300000, guid: bbd3278c31bc03f88977eea59a02445d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ecd647025e0a3c04fbd5829fff509e09, type: 3}
+  m_Resource: {fileID: 8300000, guid: ecd647025e0a3c04fbd5829fff509e09, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 2.5
+  m_Pitch: 0
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -12488,11 +12488,13 @@ MonoBehaviour:
   lookSpeed: 0.1
   lookLimit: 90
   stepSounds:
-  - {fileID: 8300000, guid: 19be23013357a2f46805996f4c092a4a, type: 3}
-  - {fileID: 8300000, guid: 3a3839b532b6e5e40ad5cd0d7ca369bf, type: 3}
-  - {fileID: 8300000, guid: 89dd8a97d2c547446be5c2f241eafa9d, type: 3}
+  - {fileID: 8300000, guid: ec41e8d2f3266984b9af1a927ee0a209, type: 3}
+  - {fileID: 8300000, guid: ac0401eb96a43ba4c8a426f4c06d1749, type: 3}
+  - {fileID: 8300000, guid: 0cf7ca40192ead2479e5c2ba56a793d1, type: 3}
+  - {fileID: 8300000, guid: ef19aa13431636a43a99cd754889b1a7, type: 3}
+  - {fileID: 8300000, guid: 691c7af004bd8a24f831e6df1fecd8e7, type: 3}
   stepDistance: 3
-  stepVolume: 0.25
+  stepVolume: 0.9
   jumpSound: {fileID: 8300000, guid: 75573d648435aa948a4e87070517cec0, type: 3}
   jumpVolume: 0.25
   catchSound: {fileID: 8300000, guid: d8528d4520e85a157abae07fea7caa17, type: 3}

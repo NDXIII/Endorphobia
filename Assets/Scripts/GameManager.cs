@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState { get; private set; } = GameState.MainMenu;
     public float playTimeSeconds { get; private set; } = 0f;
-    public Camera menuCamera;
+    public GameObject menuCamera;
 
     [Header("Spawners")]
     public ObjectSpawner batterySpawner;
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 player.SetActive(false);
-                menuCamera.enabled = true;
+                menuCamera.SetActive(true);
                 playTimeSeconds = 0f;
                 playerController.Reset();
                 Time.timeScale = 1f;
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             case GameState.Paused:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                menuCamera.enabled = false;
+                menuCamera.SetActive(false);
                 player.SetActive(true);
                 playerController.canMove = false;
                 Time.timeScale = 0f;
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
             case GameState.Dead:
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                menuCamera.enabled = false;
+                menuCamera.SetActive(false);
                 player.SetActive(true);
                 playerController.canMove = false;
                 Time.timeScale = 0f;
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
             case GameState.Playing:
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                menuCamera.enabled = false;
+                menuCamera.SetActive(false);
                 player.SetActive(true);
                 playerController.canMove = true;
                 Time.timeScale = 1f;
