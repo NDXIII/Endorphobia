@@ -4860,8 +4860,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ecd647025e0a3c04fbd5829fff509e09, type: 3}
-  m_Resource: {fileID: 8300000, guid: ecd647025e0a3c04fbd5829fff509e09, type: 3}
+  m_audioClip: {fileID: 8300000, guid: bbd3278c31bc03f88977eea59a02445d, type: 3}
+  m_Resource: {fileID: 8300000, guid: bbd3278c31bc03f88977eea59a02445d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 0
@@ -12498,7 +12498,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 75573d648435aa948a4e87070517cec0, type: 3}
   jumpVolume: 0.25
   catchSound: {fileID: 8300000, guid: d8528d4520e85a157abae07fea7caa17, type: 3}
-  catchVolume: 0.5
+  catchVolume: 0.2
 --- !u!82 &1050979851
 AudioSource:
   m_ObjectHideFlags: 0
@@ -21425,6 +21425,7 @@ GameObject:
   - component: {fileID: 1488739027}
   - component: {fileID: 1488739024}
   - component: {fileID: 1488739025}
+  - component: {fileID: 1488739028}
   m_Layer: 0
   m_Name: MenuCamera
   m_TagString: Untagged
@@ -21542,6 +21543,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 45, y: 90, z: 0}
+--- !u!81 &1488739028
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488739023}
+  m_Enabled: 1
 --- !u!1 &1503503702
 GameObject:
   m_ObjectHideFlags: 0
@@ -21571,7 +21580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc1b01b7ba2097f3983e30923947352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuCamera: {fileID: 1488739024}
+  menuCamera: {fileID: 1488739023}
   batterySpawner: {fileID: 1158291974}
   baitSpawner: {fileID: 801444052}
   player: {fileID: 1050979845}
