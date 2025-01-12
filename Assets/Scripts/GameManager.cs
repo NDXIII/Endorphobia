@@ -1,3 +1,4 @@
+using Unity.Behavior;
 using UnityEngine;
 
 public enum GameState {
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
                 menuCamera.SetActive(true);
                 playTimeSeconds = 0f;
                 playerController.Reset();
+                boss.GetComponent<Boss>().ResetBoss();
                 Time.timeScale = 1f;
                 UiManager.Instance.ShowScreen(UiScreen.MainMenu);
                 break;
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
                 player.SetActive(true);
                 playerController.canMove = false;
                 Time.timeScale = 0f;
+                boss.GetComponent<BehaviorGraphAgent>().enabled = false;
                 UiManager.Instance.ShowScreen(UiScreen.Death);
                 break;
 
@@ -94,6 +97,7 @@ public class GameManager : MonoBehaviour
                 player.SetActive(true);
                 playerController.canMove = true;
                 Time.timeScale = 1f;
+                boss.GetComponent<BehaviorGraphAgent>().enabled = true;
                 UiManager.Instance.ShowScreen(UiScreen.Gameplay);
                 break;
         }

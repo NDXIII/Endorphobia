@@ -1,3 +1,4 @@
+using Unity.Behavior;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -46,5 +47,11 @@ public class Boss : MonoBehaviour
 
             lastTimeScale = Time.timeScale;
         }
+    }
+
+    public void ResetBoss()
+    {
+        GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "BaitCounter").ObjectValue = 0;
+        transform.position = new Vector3(42, 0, -42);
     }
 }
