@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 2153496123539514348}
   - component: {fileID: 7490242864861676172}
   - component: {fileID: 5917625123250890398}
-  - component: {fileID: 4444632796154560455}
   - component: {fileID: 8435709483356342549}
   m_Layer: 14
   m_Name: BatteryHitbox
@@ -174,33 +173,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4444632796154560455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395830505270306527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae1fd8892ae88324dad09fb55e7f2a34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 599541263464555705}
-        m_TargetAssemblyTypeName: Stone, Assembly-CSharp
-        m_MethodName: Pickup
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!135 &8435709483356342549
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -231,7 +203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3459129441997885667}
-  - component: {fileID: 599541263464555705}
+  - component: {fileID: 7244653538567489020}
   m_Layer: 14
   m_Name: BaitInteractable
   m_TagString: Untagged
@@ -257,7 +229,7 @@ Transform:
   - {fileID: 8528644989127315330}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &599541263464555705
+--- !u!114 &7244653538567489020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,6 +241,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ca42b174a0bcc4aa0be83fb611415d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7244653538567489020}
+        m_TargetAssemblyTypeName: BaitInteractable, Assembly-CSharp
+        m_MethodName: Pickup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &777780326745525598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -277,6 +264,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3459129441997885667}
     m_Modifications:
+    - target: {fileID: 3024095393650370108, guid: e6081b0baeb2f1d3fb36408b631e6032, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7557210196554649736, guid: e6081b0baeb2f1d3fb36408b631e6032, type: 3}
       propertyPath: m_Name
       value: PickupUI

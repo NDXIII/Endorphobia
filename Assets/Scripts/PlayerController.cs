@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         if (collider.Length > 0)
         {
             // Get the interactable component
-            Interactable interactable = collider[0].GetComponent<Interactable>();
+            Interactable interactable = collider[0].GetComponentInParent<Interactable>();
 
             // Interact with the object if valid
             if (interactable != null)
@@ -132,19 +132,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnInteractablePickedUp(InteractableType type, float amount) {
+    public void OnInteractablePickedUp(Interactable interactable) {
         // Interact correspondingly
-        switch (type) {
+        switch (interactable.GetType()) {
             case InteractableType.Battery:
-                nightVisionTool.GetComponent<NightVisionTool>().ChargeBattery(amount);
+                BatteryInteractable batteryInteractable = (BatteryInteractable)interactable;
+                nightVisionTool.GetComponent<NightVisionTool>().ChargeBattery(batteryInteractable.pickupChargeAmount);
+                SoundEffectManager.Instance.Play(batteryInteractable.trapped ? SoundEffect.Trap : SoundEffect.Pickup);
                 break;
-            case InteractableType.Bait:
+            default:
                 baitTool.Refill();
+                SoundEffectManager.Instance.Play(SoundEffect.Pickup);
                 break;
         }
-
-        // Play sound effect
-        SoundEffectManager.Instance.Play(type == InteractableType.Trap ? SoundEffect.Trap : SoundEffect.Pickup);
     }
 
 

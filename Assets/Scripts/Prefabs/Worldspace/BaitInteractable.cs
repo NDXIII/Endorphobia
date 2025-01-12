@@ -1,10 +1,15 @@
 using UnityEngine;
 
-public class BaitInteractable : MonoBehaviour
+public class BaitInteractable : Interactable
 {
-    public void Pickup()
+    public override void Pickup()
     {
-        GameManager.Instance.OnInteractablePickedUp(InteractableType.Bait, 1);
+        GameManager.Instance.OnInteractablePickedUp(this);
         Destroy(gameObject);
+    }
+
+    public override InteractableType GetType()
+    {
+        return InteractableType.Bait;
     }
 }

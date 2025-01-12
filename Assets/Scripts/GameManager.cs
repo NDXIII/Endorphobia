@@ -102,11 +102,10 @@ public class GameManager : MonoBehaviour
         gameState = state;
     }
 
-    public void OnInteractablePickedUp(InteractableType type, float amount) {
+    public void OnInteractablePickedUp(Interactable interactable) {
         // Spawn a new interactables
-        switch (type) {
+        switch (interactable.GetType()) {
             case InteractableType.Battery:
-            case InteractableType.Trap:
                 batterySpawner.SpawnAdditionalObjects(1);
                 break;
             default:
@@ -115,6 +114,6 @@ public class GameManager : MonoBehaviour
         }
 
         // Inform player that he has picked up an interactable
-        playerController.OnInteractablePickedUp(type, amount);
+        playerController.OnInteractablePickedUp(interactable);
     }
 }

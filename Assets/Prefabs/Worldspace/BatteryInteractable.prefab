@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 7490242864861676172}
   - component: {fileID: 5917625123250890398}
   - component: {fileID: 3119506544217798955}
-  - component: {fileID: 4444632796154560455}
   m_Layer: 14
   m_Name: BatteryHitbox
   m_TagString: Untagged
@@ -197,33 +196,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &4444632796154560455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395830505270306527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae1fd8892ae88324dad09fb55e7f2a34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3840780693720916804}
-        m_TargetAssemblyTypeName: Battery, Assembly-CSharp
-        m_MethodName: Pickup
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &8787813440103064055
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3459129441997885667}
-  - component: {fileID: 3840780693720916804}
+  - component: {fileID: 7991619958604650616}
   m_Layer: 14
   m_Name: BatteryInteractable
   m_TagString: Untagged
@@ -259,7 +231,7 @@ Transform:
   - {fileID: 3157904880512006618}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3840780693720916804
+--- !u!114 &7991619958604650616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,9 +243,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fcd0750f1fadf4e97e0fa38f5fc7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7991619958604650616}
+        m_TargetAssemblyTypeName: BatteryInteractable, Assembly-CSharp
+        m_MethodName: Pickup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   pickupChargeAmount: 0.25
-  trappedSound: {fileID: 8300000, guid: 0ce9c4507a8aaaa41ab27ce8e122326e, type: 3}
-  trappedSoundVolume: 0.5
 --- !u!1001 &6288097900997049094
 PrefabInstance:
   m_ObjectHideFlags: 0

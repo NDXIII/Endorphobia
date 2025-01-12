@@ -1,15 +1,16 @@
 using Unity.Behavior;
 using UnityEngine;
 
-public class BatteryInteractable : MonoBehaviour
+public class BatteryInteractable : Interactable
 {
-    public bool isTrapped { get; private set; } = false;
+    public bool trapped { get; private set; } = false;
+
     public float pickupChargeAmount = 0.25f;
 
 
     public void SetTrapped(bool trapped)
     {
-        isTrapped = trapped;
+        this.trapped = trapped;
 
         /*if(isTrapped)
         {
@@ -17,9 +18,9 @@ public class BatteryInteractable : MonoBehaviour
         }*/
     }
 
-    public void Pickup()
+    public override void Pickup()
     {
-        if (isTrapped)
+        if (trapped)
         {
             TrapEvent trapEvent = ScriptableObject.CreateInstance<TrapEvent>();
             GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "LastTrapLocation").ObjectValue = transform.position;
@@ -28,9 +29,14 @@ public class BatteryInteractable : MonoBehaviour
         }
 
         // Notify game manager
-        GameManager.Instance.OnInteractablePickedUp(isTrapped ? InteractableType.Trap : InteractableType.Battery, pickupChargeAmount);
+        GameManager.Instance.OnInteractablePickedUp(this);
 
         // Destroy this object
         Destroy(gameObject);
+    }
+
+    public override InteractableType GetType()
+    {
+        return InteractableType.Battery;
     }
 }

@@ -5,11 +5,10 @@ using UnityEngine.Events;
 public enum InteractableType
 {
     Battery,
-    Bait,
-    Trap
+    Bait
 }
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
     static public float pickupRadius = 5f;
 
@@ -20,4 +19,7 @@ public class Interactable : MonoBehaviour
     {
         interactEvent.Invoke();
     }
+
+    public abstract void Pickup();
+    public new abstract InteractableType GetType();
 }

@@ -28,7 +28,7 @@ public class Boss : MonoBehaviour
             if (batteryInteractable != null)
             {
                 // If there is a BatteryInteractable object nearby, place a trap onto it
-                if(!batteryInteractable.isTrapped)
+                if(!batteryInteractable.trapped)
                     batteryInteractable.SetTrapped(true);
             }
         }
