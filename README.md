@@ -1,4 +1,6 @@
 # ENDORPHOBIA
+## Spielerklärung
+Der Spieler befindet sich in einem Labyrinth ohne Ausweg. Sein einziges Werkzeug ist ein Nachtsichtgerät. Der Spieler kann im Labyrinth Ressourcen wie Steine und Batterien finden, um sich zu verteidigen. Er wird nämlich von einem ihn unbekanntem Monster gejagt. Wie lange wird der Spieler überleben können, bis das Monster ihn findet?
 
 ## Probleme und Herausforderungen
 ### Unity 6
