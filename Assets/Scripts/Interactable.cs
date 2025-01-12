@@ -4,9 +4,9 @@ using UnityEngine.Events;
 
 public enum InteractableType
 {
-    BatteryNormal,
-    BatteryTrap,
-    Bait
+    Battery,
+    Bait,
+    Trap
 }
 
 public class Interactable : MonoBehaviour

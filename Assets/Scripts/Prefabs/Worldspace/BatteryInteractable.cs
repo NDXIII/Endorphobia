@@ -28,7 +28,7 @@ public class BatteryInteractable : MonoBehaviour
         }
 
         // Notify game manager
-        GameManager.Instance.OnInteractablePickedUp(isTrapped ? InteractableType.BatteryTrap : InteractableType.BatteryNormal, pickupChargeAmount);
+        GameManager.Instance.OnInteractablePickedUp(isTrapped ? InteractableType.Trap : InteractableType.Battery, pickupChargeAmount);
 
         // Destroy this object
         Destroy(gameObject);

@@ -13,33 +13,21 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 6f;
     public float sprintSpeed = 12f;
     public float jumpPower = 7f;
+    public float stepDistance = 3f;
     public float gravity = 9.81f;
 
     [Header("Camera Parameter")]
     public Camera fpsCamera;
     public float lookSpeed = 0.5f;
     public float lookLimit = 90f;
-
-    [Header("Audio")]
-    public AudioClip[] stepSounds;
-    public float stepDistance = 3f;
-    public float stepVolume = 0.25f;
-    public AudioClip jumpSound;
-    public float jumpVolume = 0.25f;
-    public AudioClip catchSound;
-    public float catchVolume = 0.5f;
-    public AudioClip pickupNormalSound;
-    public AudioClip pickupTrapSound;
-    public float pickupVolume = 0.5f;
-
-    private AudioSource audioSource;
+    
     private CharacterController characterController;
     private Vector3 moveVelocity;
     private Vector2 moveInput;
     private Vector2 lookInput;
     private float rotation;
     private float lastStepDistance = 0f;
-    private NightVisionTool nightVision;
+    private NightVisionTool nightVisionTool;
     private BaitTool baitTool;
     
 
@@ -47,9 +35,8 @@ public class PlayerController : MonoBehaviour
     {
         // Get components
         characterController = GetComponent<CharacterController>();
-        nightVision = GetComponentInChildren<NightVisionTool>();
+        nightVisionTool = GetComponentInChildren<NightVisionTool>();
         baitTool = GetComponentInChildren<BaitTool>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -90,10 +77,8 @@ public class PlayerController : MonoBehaviour
             lastStepDistance += moveVelocityXZ;
             if (lastStepDistance > stepDistance)
             {
-                // Play random step sound with random pitch
-                audioSource.pitch = Random.Range(0.9f, 1.1f);
-                audioSource.PlayOneShot(stepSounds[Random.Range(0, stepSounds.Length)], stepVolume);
-                
+                // Play sound effect
+                SoundEffectManager.Instance.Play(SoundEffect.Step);
                 lastStepDistance = 0f;
             }
         }
@@ -131,7 +116,7 @@ public class PlayerController : MonoBehaviour
         rotation = 0f;
 
         // Reset tools
-        nightVision.ChargeBattery(1f);
+        nightVisionTool.ChargeBattery(1f);
         baitTool.SetStock(1);
     }
 
@@ -142,7 +127,7 @@ public class PlayerController : MonoBehaviour
         if (hit.gameObject.CompareTag("Boss") && GameManager.Instance.gameState == GameState.Playing)
         {
             // Player is dead now
-            audioSource.PlayOneShot(catchSound, catchVolume);
+            SoundEffectManager.Instance.Play(SoundEffect.Catch);
             GameManager.Instance.SetState(GameState.Dead);
         }
     }
@@ -150,18 +135,16 @@ public class PlayerController : MonoBehaviour
     public void OnInteractablePickedUp(InteractableType type, float amount) {
         // Interact correspondingly
         switch (type) {
-            case InteractableType.BatteryNormal:
-                nightVision.GetComponent<NightVisionTool>().ChargeBattery(amount);
-                audioSource.PlayOneShot(pickupNormalSound, pickupVolume);
+            case InteractableType.Battery:
+                nightVisionTool.GetComponent<NightVisionTool>().ChargeBattery(amount);
                 break;
-            case InteractableType.BatteryTrap:
-                audioSource.PlayOneShot(pickupTrapSound, pickupVolume);
-                break;
-            default:
+            case InteractableType.Bait:
                 baitTool.Refill();
-                audioSource.PlayOneShot(pickupNormalSound, pickupVolume);
                 break;
         }
+
+        // Play sound effect
+        SoundEffectManager.Instance.Play(type == InteractableType.Trap ? SoundEffect.Trap : SoundEffect.Pickup);
     }
 
 
@@ -180,7 +163,7 @@ public class PlayerController : MonoBehaviour
     public void HandleJumpInput(InputAction.CallbackContext ctx) {
         if (ctx.performed && canMove && characterController.isGrounded) {
             moveVelocity.y = jumpPower;
-            audioSource.PlayOneShot(jumpSound, jumpVolume);
+            SoundEffectManager.Instance.Play(SoundEffect.Jump);
         }
     }
 
@@ -214,7 +197,7 @@ public class PlayerController : MonoBehaviour
     public void HandleNightVisionInput(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && canMove) {
-            nightVision.Toggle();
+            nightVisionTool.Toggle();
         }
     }
 }

@@ -13,7 +13,6 @@ public class BaitTool : MonoBehaviour
     public float throwCooldown = 0.1f;
 
     private GameObject currentObj;
-    private AudioSource audioSource;
     private UITool uiToolClass;
     private float nextThrowTime = 0f;
 
@@ -22,7 +21,6 @@ public class BaitTool : MonoBehaviour
     private void Start()
     {
         // Get components
-        audioSource = GetComponent<AudioSource>();
         uiToolClass = uiToolObject.GetComponent<UITool>();
         
         // Update the UI
@@ -85,7 +83,7 @@ public class BaitTool : MonoBehaviour
         amount--;
         UpdateUi();
 
-        // Play sound
-        audioSource.PlayOneShot(audioSource.clip);
+        // Play sound effect
+        SoundEffectManager.Instance.Play(SoundEffect.Throw);
     }
 }

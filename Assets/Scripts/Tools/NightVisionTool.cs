@@ -10,7 +10,6 @@ public class NightVisionTool : MonoBehaviour
     public GameObject uiToolObject;
     
     private Light lightSource;
-    private AudioSource audioSource;
     private UITool uiToolClass;
     private float cutoffCharge = 0.01f;
 
@@ -19,7 +18,6 @@ public class NightVisionTool : MonoBehaviour
     {
         // Get components
         lightSource = GetComponent<Light>();
-        audioSource = GetComponent<AudioSource>();
         uiToolClass = uiToolObject.GetComponent<UITool>();
 
         // Set start state
@@ -65,7 +63,7 @@ public class NightVisionTool : MonoBehaviour
         // Play sound effect if state changed
         if (uiToolClass.selected != enable)
         {
-            audioSource.PlayOneShot(audioSource.clip);
+            SoundEffectManager.Instance.Play(SoundEffect.Switch);
         }
 
         // Set new state
