@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
             // Interact with the object if valid
             if (interactable != null)
             {
-                interactable.Interact();
+                interactable.Pickup();
             }
         }
     }
