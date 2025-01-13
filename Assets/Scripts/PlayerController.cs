@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float staminaDepletionRate = 0.25f;
     public float staminaRechargeRate = 0.1f;
     public float jumpPower = 7f;
+    public float staminaJumpCost = 0.2f;
     public float stepDistance = 3f;
     public float gravity = 9.81f;
 
@@ -51,7 +52,9 @@ public class PlayerController : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
-        staminaResourceClass.SetCharge(Mathf.Clamp(staminaResourceClass.charge + (isSprinting ? - (Time.deltaTime * staminaDepletionRate) : (Time.deltaTime * staminaRechargeRate)), 0f, 1f));
+        bool isMoving = moveInput.x != 0f || moveInput.y != 0f;
+        staminaResourceClass.SetCharge(Mathf.Clamp(staminaResourceClass.charge + (isMoving && isSprinting ?
+        - (Time.deltaTime * staminaDepletionRate): (Time.deltaTime * staminaRechargeRate)), 0f, 1f));
 
         float currentSpeedX = canMove ? (isSprinting && staminaResourceClass.charge > 0f ? sprintSpeed : walkSpeed) * moveInput.y : 0f;
         float currentSpeedY = canMove ? (isSprinting && staminaResourceClass.charge > 0f ? sprintSpeed : walkSpeed) * moveInput.x : 0f;
@@ -173,8 +176,9 @@ public class PlayerController : MonoBehaviour
     }
 
     public void HandleJumpInput(InputAction.CallbackContext ctx) {
-        if (ctx.performed && canMove && characterController.isGrounded) {
+        if (ctx.performed && canMove && characterController.isGrounded && staminaResourceClass.charge >= staminaJumpCost) {
             moveVelocity.y = jumpPower;
+            staminaResourceClass.SetCharge(staminaResourceClass.charge - staminaJumpCost);
             SoundEffectManager.Instance.Play(SoundEffect.Jump);
         }
     }
