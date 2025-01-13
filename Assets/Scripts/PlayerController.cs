@@ -6,12 +6,15 @@ public class PlayerController : MonoBehaviour
     [Header("General Parameters")]
     public Transform spawnPoint;
     public LayerMask interactableLayer;
+    public GameObject staminaResourceObject;
 
     [Header("Move Parameter")]
     public bool canMove = true;
     public bool isSprinting = false;
     public float walkSpeed = 6f;
     public float sprintSpeed = 12f;
+    public float staminaDepletionRate = 0.25f;
+    public float staminaRechargeRate = 0.1f;
     public float jumpPower = 7f;
     public float stepDistance = 3f;
     public float gravity = 9.81f;
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private float lastStepDistance = 0f;
     private NightVisionTool nightVisionTool;
     private BaitTool baitTool;
+    private UiResource staminaResourceClass;
     
 
     private void Awake()
@@ -37,6 +41,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         nightVisionTool = GetComponentInChildren<NightVisionTool>();
         baitTool = GetComponentInChildren<BaitTool>();
+        staminaResourceClass = staminaResourceObject.GetComponent<UiResource>();
     }
 
     // Update is called once per frame
@@ -46,8 +51,10 @@ public class PlayerController : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
-        float currentSpeedX = canMove ? (isSprinting ? sprintSpeed : walkSpeed) * moveInput.y : 0f;
-        float currentSpeedY = canMove ? (isSprinting ? sprintSpeed : walkSpeed) * moveInput.x : 0f;
+        staminaResourceClass.SetCharge(Mathf.Clamp(staminaResourceClass.charge + (isSprinting ? - (Time.deltaTime * staminaDepletionRate) : (Time.deltaTime * staminaRechargeRate)), 0f, 1f));
+
+        float currentSpeedX = canMove ? (isSprinting && staminaResourceClass.charge > 0f ? sprintSpeed : walkSpeed) * moveInput.y : 0f;
+        float currentSpeedY = canMove ? (isSprinting && staminaResourceClass.charge > 0f ? sprintSpeed : walkSpeed) * moveInput.x : 0f;
 
         float movementVelocity = moveVelocity.y;
         moveVelocity = (forward * currentSpeedX) + (right * currentSpeedY);
@@ -83,6 +90,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // Apply movement
         characterController.Move(moveVelocity * Time.deltaTime);
     }
 
@@ -119,6 +127,9 @@ public class PlayerController : MonoBehaviour
         nightVisionTool.ChargeBattery(1f);
         nightVisionTool.SwitchOn(true);
         baitTool.SetStock(1);
+
+        // Reset resources
+        staminaResourceClass.SetCharge(1f);
     }
 
 
