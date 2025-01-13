@@ -5,7 +5,7 @@ public class BatteryInteractable : Interactable
 {
     public bool trapped { get; private set; } = false;
 
-    public float pickupChargeAmount = 0.25f;
+    public float pickupChargeAmount = 0.2f;
 
 
     public void SetTrapped(bool trapped)

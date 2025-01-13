@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fcd0750f1fadf4e97e0fa38f5fc7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupChargeAmount: 0.25
+  pickupChargeAmount: 0.2
 --- !u!1001 &6288097900997049094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252,6 +252,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3459129441997885667}
     m_Modifications:
+    - target: {fileID: 3024095393650370108, guid: e6081b0baeb2f1d3fb36408b631e6032, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7557210196554649736, guid: e6081b0baeb2f1d3fb36408b631e6032, type: 3}
       propertyPath: m_Name
       value: PickupUI

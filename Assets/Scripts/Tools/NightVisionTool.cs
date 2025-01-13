@@ -5,7 +5,7 @@ public class NightVisionTool : MonoBehaviour
 {
     public float batteryCharge { get; private set; } = 1f;
 
-    public float batteryDepletionRate = 1f;
+    public float batteryDepletionRate = 3f;
     public Volume nightVisionVolume;
     public GameObject uiToolObject;
     
