@@ -1,8 +1,11 @@
 # ENDORPHOBIA
+
 ## Spielerklärung
+
 Der Spieler befindet sich in einem Labyrinth ohne Ausweg. Sein einziges Werkzeug ist ein Nachtsichtgerät. Der Spieler kann im Labyrinth Ressourcen wie Steine und Batterien finden, um sich zu verteidigen. Er wird nämlich von einem ihn unbekanntem Monster gejagt. Wie lange wird der Spieler überleben können, bis das Monster ihn findet?
 
 Steuerung:
+
 * WASD - Laufen
 * Leertaste - Springen
 * Shift - Rennen
@@ -11,7 +14,9 @@ Steuerung:
 * Linksklick - Köder werfen
 
 ## Probleme und Herausforderungen
+
 ### Unity 6
+
 * Crasht häufig
 * Viele bugs
 * Synchronisationsprobleme bei Verwendung mit Git
@@ -20,13 +25,12 @@ Steuerung:
 * Verändertes UI nicht direkt übersichtlich
 
 ## Gesammelte Erfahrungen
+
 * Workarounds für Unity 6 bugs
 * Behavior Graph
 * Post Processing mit URP
 * Sound Design
 * Teamarbeit an einem gemeinsamen Unity Projekt
-
-
 
 ## Assets
 
@@ -36,6 +40,7 @@ Steuerung:
 * Behavior
 * Footsteps - Essentials: https://assetstore.unity.com/packages/audio/sound-fx/foley/footsteps-essentials-189879
 * Pack Free Textures 1: https://assetstore.unity.com/packages/2d/textures-materials/pack-free-textures-1-264695
+* Blood splatter decal package: https://assetstore.unity.com/packages/p/blood-splatter-decal-package-7518
 
 ### Sound effects
 
