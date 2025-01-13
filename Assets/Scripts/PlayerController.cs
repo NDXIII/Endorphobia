@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
         // Reset tools
         nightVisionTool.ChargeBattery(1f);
+        nightVisionTool.SwitchOn(true);
         baitTool.SetStock(1);
     }
 
