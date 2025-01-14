@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
                 menuCamera.SetActive(true);
                 playTimeSeconds = 0f;
                 playerController.Reset();
-                Time.timeScale = 1f;
+                Time.timeScale = 0f;
                 UiManager.Instance.ShowScreen(UiScreen.MainMenu);
                 break;
 

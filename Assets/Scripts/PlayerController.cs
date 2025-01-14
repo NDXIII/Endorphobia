@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
     public void Reset() {
         // Reset player transform
-        transform.position = spawnPoint.position;
+        transform.position = SpawnManager.Instance.GetNextSpawn();
         transform.rotation = spawnPoint.rotation;
 
         // Reset camera rotation
