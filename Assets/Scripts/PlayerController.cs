@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour
     public bool isSprinting = false;
     public float walkSpeed = 6f;
     public float sprintSpeed = 12f;
-    public float staminaDepletionRate = 0.25f;
-    public float staminaRechargeRate = 0.1f;
+    public float staminaDepletionRate = 0.2f;
+    public float staminaRechargeRate = 0.15f;
     public float jumpPower = 7f;
-    public float staminaJumpCost = 0.2f;
+    public float staminaJumpCost = 0.1f;
     public float stepDistance = 3f;
     public float gravity = 9.81f;
 

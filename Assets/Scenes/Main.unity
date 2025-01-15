@@ -10030,7 +10030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3f68001d0d78b35ba2e9b53ab2daf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  batteryDepletionRate: 2
+  batteryDepletionRate: 1.5
   nightVisionVolume: {fileID: 198397287}
   uiToolObject: {fileID: 1231882204}
 --- !u!1 &764970640
@@ -13104,10 +13104,10 @@ MonoBehaviour:
   isSprinting: 0
   walkSpeed: 6
   sprintSpeed: 12
-  staminaDepletionRate: 0.25
-  staminaRechargeRate: 0.1
+  staminaDepletionRate: 0.2
+  staminaRechargeRate: 0.15
   jumpPower: 7
-  staminaJumpCost: 0.2
+  staminaJumpCost: 0.1
   stepDistance: 3
   gravity: 9.81
   fpsCamera: {fileID: 330585545}
