@@ -5,21 +5,28 @@ public class Boss : MonoBehaviour
 {
     public float batteryTrapRadius = 3f;
 
-    private float lastTimeScale;
     private AudioSource audioSource;
 
 
     private void Awake() {
         // Get components
         audioSource = GetComponent<AudioSource>();
-
-        // Remeber last time scale
-        lastTimeScale = Time.timeScale;
     }
 
     // Update is called once per frame
     private void Update()
     {
+        // Play audio source only when the game is not paused
+        if (Time.timeScale == 0f && audioSource.isPlaying) {
+            audioSource.Pause();
+        }
+        else if (Time.timeScale != 0f && !audioSource.isPlaying)
+        {
+            audioSource.UnPause();
+        }
+    }
+
+    private void FixedUpdate() {
         // Check if there is a BatterInteractable object nearby
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, batteryTrapRadius);
         foreach (var hitCollider in hitColliders)
@@ -32,24 +39,9 @@ public class Boss : MonoBehaviour
                     batteryInteractable.SetTrapped(true);
             }
         }
-
-        // Check if the time scale has changed
-        if (lastTimeScale != Time.timeScale)
-        {
-            // Play audio source only when the game is not paused
-            if (Time.timeScale == 0f) {
-                audioSource.Pause();
-            }
-            else
-            {
-                audioSource.UnPause();
-            }
-
-            lastTimeScale = Time.timeScale;
-        }
     }
 
-    public void ResetBoss()
+    public void Reset()
     {
         GameManager.Instance.boss.GetComponent<BehaviorGraphAgent>().BlackboardReference.Blackboard.Variables.Find(v => v.Name == "BaitCounter").ObjectValue = 0;
         transform.position = new Vector3(42, 0, -42);
